@@ -1,0 +1,9 @@
+.days-col {
+    display: inline-block;
+    padding: 5px;
+}
+
+.weekHours {
+    padding: 4px;
+    font-size: 14px;
+}

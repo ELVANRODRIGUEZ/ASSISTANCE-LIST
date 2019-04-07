@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Trabajadores</title>
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Link to BOOTSTRAP. -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Metatag to start setting resposiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- link to CSS. -->
+  <link rel="stylesheet" href="assets/css/index.css">
+  <!-- Firebase Reference -->
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+  <!-- Moment.js Reference -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <br>
+
+    <!-- ==================================================== HEADDER -->
+
+
+    <div class="jumbotron jumbotron-fluid bg-dark text-light">
+      <h1 class="text-center">REGISTRO DE TRABAJADORES</h1>
+      <!-- <h3 class="text-center"></h3> -->
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card card-default">
+          <div class="card-body">
+            <h3 class="text-center">
+              <strong>INFORMACIÓN DE TRABAJADORES</strong></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==================================================== TABLE -->
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NOMBRE</th>
+          <th scope="col">RANGO</th>
+          <th scope="col">RAYA SEMANAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+              </tr> -->
+
+      </tbody>
+    </table>
+
+
+    <!-- ==================================================== INPUT FORM -->
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card card-default">
+          <div class="card-header">
+            AÑADIR LISTA SEMANAL POR TRABAJADOR
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group row">
+                <label for="name">Obra</label>
+                <input class="form-control" id="name" type="text">
+              </div>
+              <div class="form-group row">
+                <label for="name">Contratista</label>
+                <input class="form-control" id="name" type="text">
+              </div>
+              <div class="form-group row">
+                <label for="name">Nombre del trabajador</label>
+                <input class="form-control" id="name" type="text">
+              </div>
+              <div class="form-group row">
+                <label for="rango">Rango</label>
+                <input class="form-control" id="rango" type="text">
+              </div>
+              <div class="form-group row">
+                <label for="rango">Fecha (a sábados)</label>
+                <input class="form-control" id="rango" type="text">
+              </div>
+              <div class="days-col form-group col-1">
+                <span class="weekHours input-group-text ">Lun</span>
+                <input type="number" aria-label="First name" class="weekHours form-control ">
+                <span class="weekHours input-group-text ">Lun-e</span>
+                <input type="number" aria-label="Last name" class="weekHours form-control ">
+              </div>
+              <div class="days-col form-group col-1">
+                <span class="weekHours input-group-text ">Mar</span>
+                <input type="number" aria-label="First name" class="weekHours form-control ">
+                <span class="weekHours input-group-text ">Mar-e</span>
+                <input type="number" aria-label="Last name" class="weekHours form-control ">
+              </div>
+              <div class="days-col form-group col-1">
+                <span class="weekHours input-group-text ">Mie</span>
+                <input type="number" aria-label="First name" class="weekHours form-control ">
+                <span class="weekHours input-group-text ">Mie-e</span>
+                <input type="number" aria-label="Last name" class="weekHours form-control ">
+              </div>
+              <div class="days-col form-group col-1">
+                <span class="weekHours input-group-text ">Jue</span>
+                <input type="number" aria-label="First name" class="weekHours form-control ">
+                <span class="weekHours input-group-text ">Jue-e</span>
+                <input type="number" aria-label="Last name" class="weekHours form-control ">
+              </div>
+              <div class="days-col form-group col-1">
+                <span class="weekHours input-group-text ">Vie</span>
+                <input type="number" aria-label="First name" class="weekHours form-control ">
+                <span class="weekHours input-group-text ">Vie-e</span>
+                <input type="number" aria-label="Last name" class="weekHours form-control ">
+              </div>
+              <div class="days-col form-group col-1">
+                <span class="weekHours input-group-text ">Sab</span>
+                <input type="number" aria-label="First name" class="weekHours form-control ">
+                <span class="weekHours input-group-text ">Sab-e</span>
+                <input type="number" aria-label="Last name" class="weekHours form-control ">
+              </div>
+              <div class="days-col form-group col-1">
+                <span class="weekHours input-group-text ">Dom-e</span>
+                <input type="number" aria-label="Last name" class="weekHours form-control ">
+              </div>
+              
+              <div class="form-group row">
+                <label for="raya">Raya semanal ($)</label>
+                <input class="form-control" id="raya" type="number">
+              </div>
+              <div class="form-group row">
+                <label for="raya">Descuentos ($)</label>
+                <input class="form-control" id="raya" type="number">
+              </div>
+              <div class="form-group row">
+                <label for="raya">Forma de pago</label>
+                <input class="form-control" id="raya" type="text">
+              </div>
+              <div class="form-group row">
+                <label for="raya">Observaciones</label>
+                <input class="form-control" id="raya" type="text">
+              </div>
+              <button class="btn btn-primary btn-dark" id="submit-bid" type="submit">Agregar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Script -->
+  <script src="assets/javascript/index.js"></script>
+
+</body>
+
+</html>
