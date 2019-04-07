@@ -20,26 +20,56 @@ firebase.initializeApp(config);
 // Create a variable to reference the database.
 var database = firebase.database();
 
+// Table variables
+
+var obra;   // OBRA>> will store "obra".
+var contratista;   // CONTRATISTA>> will store "contratista".
 var name;   // NAME>> will store "nombre del trabajador".
 var rango;  // RANGO>> will store "rango del trabajador".
+var semana;   // SEMANA>> will store "semana".
+var hrLun;   // HORAS LUNES>> will store "horas en lunes".
+var hrExLun;   // HORAS EXTRA LUNES>> will store "horas extra en lunes".
+var hrMar;   // HORAS MARTES>> will store "horas en Martes".
+var hrExMar;   // HORAS EXTRA MARTES>> will store "horas extra en Martes".
+var hrMie;   // HORAS MIERCOLES>> will store "horas en miércoles".
+var hrExMie;   // HORAS EXTRA MIERCOLES>> will store "horas extra en miércoles".
+var hrJue;   // HORAS JEUVES>> will store "horas en jueves".
+var hrExJue;   // HORAS EXTRA JEUVES>> will store "horas extra en jueves".
+var hrVie;   // HORAS VIERNES>> will store "horas en viernes".
+var hrExVie;   // HORAS EXTRA VIERNES>> will store "horas extra en viernes".
+var hrSab;   // HORAS SABADO>> will store "horas en sábado".
+var hrExSab;   // HORAS EXTRA SABADO>> will store "horas extra en sábado".
+var hrExDom;   // HORAS EXTRA DOMINGO>> will store "horas extra en domingo".
+var totalHr;   // TOTAL DE HORAS>> will store "total de horas".
+var totalHrEx;   // TOTAL DE HORAS EXTRA>> will store "total de horas extra".
 var raya;   // RAYA>> will store "raya semanal del trabajador".
-var trabajadores;   // TRABAJADORES>> array will store all trabajadores submitted in the Firebase database.
-var keysArr;    // KEYS ARRAY>> will store all of "trabajadores" ID's values in array form.
+var impBase;   // IMPORTE BASE>> will store "importe base".
+var impExtra;   // IMPORTE EXTRA>> will store "importe extra".
+var descuentos;   // DESCUENTOS>> will store "descuentos".
+var impTotal;   // IMPORTE TOTAL>> will store "importe total".
+var formaPago;   // FORMA PAGO>> will store "forma de pago".
+var observaciones;   // OBSERVACIONES>> will store "observaciones".
+
+
+// Database variables
+
+var listaSemanal;   // LISTA SEMANAL>> array will store all listaSemanal submitted in the Firebase database.
+var keysArr;    // KEYS ARRAY>> will store all of "listaSemanal" ID's values in array form.
 var k;  // KEY>> will store one given element from the "keysArr" array.
 var nameInTab;  // NAME IN TABLE>> will store a certain "NOMBRE" value from the "trabajadores" specific item.
 
-var trabajadoresRef = database.ref("TRABAJADORES"); // TRABAJADORES REFERENCE>> stores a pointer (reference) to the "TRABAJADORES" folder (or table) in Firebase. We sotore the reference because it is the reference that has the ".on" (listener) method.
+var listaSemanalRef = database.ref("LISTA_SEMANAL"); // LISTA SEMANAL>> stores a pointer (reference) to the "LISTA_SEMANAL" folder (or table) in Firebase. We sotore the reference because it is the reference that has the ".on" (listener) method.
 
-trabajadoresRef.on("value", gotData, errData); // Event listener for "trabajadoresRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
+listaSemanalRef.on("value", gotData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
 
 
 
-// ================================= ON FIREBASE "TRABAJADORES" FOLDER CHANGE
+// ================================= ON FIREBASE "LISTA_SEMANAL" FOLDER CHANGE
 
 
 function gotData(data) {
-    trabajadores = data.val();  // Storing the new (recently changed) "TRABAJADORES" json object in Firebase.
-    keysArr = Object.keys(trabajadores); // Storing as array all the ID from "TRABAJADORES" json object in Firebase.
+    listaSemanal = data.val();  // Storing the new (recently changed) "LISTA_SEMANAL" json object in Firebase.
+    keysArr = Object.keys(listaSemanal); // Storing as array all the ID from "LISTA_SEMANAL" json object in Firebase.
 
     $("tbody").empty(); // Clearing the HTML table to retrieve the most recent one.
 

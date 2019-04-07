@@ -1,9 +1,42 @@
+.tableDiv {
+    overflow: auto;
+    /* background-color: black;
+    color: white; */
+    font-size: 9pt;
+}
+
+/* .id {
+    width: 40px;
+} */
+
+.weekDaysContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    background-color: black;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
 .days-col {
     display: inline-block;
-    padding: 5px;
+    width: 14.28%;
+    min-width: 60px;
+    padding: 2px;
+    margin-bottom: 0;
+}
+
+.domingo {
+    align-self: flex-end;
 }
 
 .weekHours {
     padding: 4px;
     font-size: 14px;
+}
+
+.btn {
+    margin-left: 50%;
+    transform: translateX(-50%);
 }

@@ -35,17 +35,14 @@
 
 
     <div class="jumbotron jumbotron-fluid bg-dark text-light">
-      <h1 class="text-center">REGISTRO DE TRABAJADORES</h1>
+      <h3 class="text-center">REGISTRO DE TRABAJADORES</h3>
       <!-- <h3 class="text-center"></h3> -->
     </div>
 
     <div class="row">
       <div class="col-lg-12">
-        <div class="card card-default">
-          <div class="card-body">
-            <h3 class="text-center">
-              <strong>INFORMACIÓN DE TRABAJADORES</strong></h3>
-          </div>
+        <div class="card-header">
+          LISTA SEMANAL POR TRABAJADOR
         </div>
       </div>
     </div>
@@ -53,24 +50,44 @@
 
     <!-- ==================================================== TABLE -->
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">NOMBRE</th>
-          <th scope="col">RANGO</th>
-          <th scope="col">RAYA SEMANAL</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-              </tr> -->
-
-      </tbody>
-    </table>
+    <div class="tableDiv">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="id" scope="col">ID</th>
+            <th scope="col">OBRA</th>
+            <th scope="col">CONTRATISTA</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">RANGO</th>
+            <th scope="col">FECHA (A SÁBADOS)</th>
+            <th scope="col">LUN</th>
+            <th scope="col">LU-E</th>
+            <th scope="col">MAR</th>
+            <th scope="col">MA-E</th>
+            <th scope="col">MIE</th>
+            <th scope="col">MI-E</th>
+            <th scope="col">JUE</th>
+            <th scope="col">JU-E</th>
+            <th scope="col">VIE</th>
+            <th scope="col">VI-E</th>
+            <th scope="col">SAB</th>
+            <th scope="col">SA-E</th>
+            <th scope="col">DO-E</th>
+            <th scope="col">TOTAL HRS</th>
+            <th scope="col">TOTAL HRS EX</th>
+            <th scope="col">RAYA SEMANAL</th>
+            <th scope="col">IMPORTE BASE</th>
+            <th scope="col">IMPORTE EXTRA</th>
+            <th scope="col">DESCUENTOS</th>
+            <th scope="col">IMPORTE TOTAL</th>
+            <th scope="col">FORMA DE PAGO</th>
+            <th scope="col">OBSERVACIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
 
 
     <!-- ==================================================== INPUT FORM -->
@@ -79,10 +96,11 @@
       <div class="col-lg-12">
         <div class="card card-default">
           <div class="card-header">
-            AÑADIR LISTA SEMANAL POR TRABAJADOR
+            AÑADIR LISTA SEMANAL DE TRABAJADOR
           </div>
           <div class="card-body">
             <form>
+
               <div class="form-group row">
                 <label for="name">Obra</label>
                 <input class="form-control" id="name" type="text">
@@ -103,47 +121,49 @@
                 <label for="rango">Fecha (a sábados)</label>
                 <input class="form-control" id="rango" type="text">
               </div>
-              <div class="days-col form-group col-1">
-                <span class="weekHours input-group-text ">Lun</span>
-                <input type="number" aria-label="First name" class="weekHours form-control ">
-                <span class="weekHours input-group-text ">Lun-e</span>
-                <input type="number" aria-label="Last name" class="weekHours form-control ">
+              <div class="weekDaysContainer row">
+                <div class="days-col form-group ">
+                  <span class="weekHours input-group-text ">Lun</span>
+                  <input type="number" aria-label="First name" class="weekHours form-control ">
+                  <span class="weekHours input-group-text ">Lun-e</span>
+                  <input type="number" aria-label="Last name" class="weekHours form-control ">
+                </div>
+                <div class="days-col form-group ">
+                  <span class="weekHours input-group-text ">Mar</span>
+                  <input type="number" aria-label="First name" class="weekHours form-control ">
+                  <span class="weekHours input-group-text ">Mar-e</span>
+                  <input type="number" aria-label="Last name" class="weekHours form-control ">
+                </div>
+                <div class="days-col form-group ">
+                  <span class="weekHours input-group-text ">Mie</span>
+                  <input type="number" aria-label="First name" class="weekHours form-control ">
+                  <span class="weekHours input-group-text ">Mie-e</span>
+                  <input type="number" aria-label="Last name" class="weekHours form-control ">
+                </div>
+                <div class="days-col form-group ">
+                  <span class="weekHours input-group-text ">Jue</span>
+                  <input type="number" aria-label="First name" class="weekHours form-control ">
+                  <span class="weekHours input-group-text ">Jue-e</span>
+                  <input type="number" aria-label="Last name" class="weekHours form-control ">
+                </div>
+                <div class="days-col form-group ">
+                  <span class="weekHours input-group-text ">Vie</span>
+                  <input type="number" aria-label="First name" class="weekHours form-control ">
+                  <span class="weekHours input-group-text ">Vie-e</span>
+                  <input type="number" aria-label="Last name" class="weekHours form-control ">
+                </div>
+                <div class="days-col form-group ">
+                  <span class="weekHours input-group-text ">Sab</span>
+                  <input type="number" aria-label="First name" class="weekHours form-control ">
+                  <span class="weekHours input-group-text ">Sab-e</span>
+                  <input type="number" aria-label="Last name" class="weekHours form-control ">
+                </div>
+                <div class="days-col domingo form-group ">
+                  <span class="weekHours input-group-text ">Dom-e</span>
+                  <input type="number" aria-label="Last name" class="weekHours form-control ">
+                </div>
               </div>
-              <div class="days-col form-group col-1">
-                <span class="weekHours input-group-text ">Mar</span>
-                <input type="number" aria-label="First name" class="weekHours form-control ">
-                <span class="weekHours input-group-text ">Mar-e</span>
-                <input type="number" aria-label="Last name" class="weekHours form-control ">
-              </div>
-              <div class="days-col form-group col-1">
-                <span class="weekHours input-group-text ">Mie</span>
-                <input type="number" aria-label="First name" class="weekHours form-control ">
-                <span class="weekHours input-group-text ">Mie-e</span>
-                <input type="number" aria-label="Last name" class="weekHours form-control ">
-              </div>
-              <div class="days-col form-group col-1">
-                <span class="weekHours input-group-text ">Jue</span>
-                <input type="number" aria-label="First name" class="weekHours form-control ">
-                <span class="weekHours input-group-text ">Jue-e</span>
-                <input type="number" aria-label="Last name" class="weekHours form-control ">
-              </div>
-              <div class="days-col form-group col-1">
-                <span class="weekHours input-group-text ">Vie</span>
-                <input type="number" aria-label="First name" class="weekHours form-control ">
-                <span class="weekHours input-group-text ">Vie-e</span>
-                <input type="number" aria-label="Last name" class="weekHours form-control ">
-              </div>
-              <div class="days-col form-group col-1">
-                <span class="weekHours input-group-text ">Sab</span>
-                <input type="number" aria-label="First name" class="weekHours form-control ">
-                <span class="weekHours input-group-text ">Sab-e</span>
-                <input type="number" aria-label="Last name" class="weekHours form-control ">
-              </div>
-              <div class="days-col form-group col-1">
-                <span class="weekHours input-group-text ">Dom-e</span>
-                <input type="number" aria-label="Last name" class="weekHours form-control ">
-              </div>
-              
+
               <div class="form-group row">
                 <label for="raya">Raya semanal ($)</label>
                 <input class="form-control" id="raya" type="number">
@@ -158,7 +178,7 @@
               </div>
               <div class="form-group row">
                 <label for="raya">Observaciones</label>
-                <input class="form-control" id="raya" type="text">
+                <textarea id="my-input" class="form-control" rows="2"></textarea>
               </div>
               <button class="btn btn-primary btn-dark" id="submit-bid" type="submit">Agregar</button>
             </form>
