@@ -59,24 +59,25 @@ var hrsSemana = 50;
 
 // Database variables
 
-var listaSemanal; // LISTA SEMANAL>> array will store all listaSemanal submitted in the Firebase database.
+var listaSemanal; // LISTA SEMANAL>> array will store all listaSemanal items submitted in the Firebase database.
 var keysArr; // KEYS ARRAY>> will store all of "listaSemanal" ID's values in array form.
 var k; // KEY>> will store one given element from the "keysArr" array.
-var nombreInTab; // NNOMBRE IN TABLE>> will store a certain "NOMBRE" value from the "trabajadores" specific item.
+var nombreInTab; // NOMBRE IN TABLE>> will store a certain "NOMBRE" value from the "trabajadores" specific item.
 var trabajadorID; // TRABAJADOR ID>> will store a selected id from the table's rows for edition mode.
+var listaTrabajadores;  // LISTA DE TRABAJADORES// wil store all listaTrabajadores existing on TRABAJADORES folder on Firebase.
 
 var listaSemanalRef = database.ref("LISTA_SEMANAL"); // LISTA SEMANAL REFERENCE>> stores a pointer (reference) to the "LISTA_SEMANAL" folder (or table) in Firebase. We sotore the reference because it is the reference that has the ".on" (listener) method as well as the ".push" method.
 
-var listaTrabajadorRef; // LISTA DE TRABAJADOR REFERENCE>> stores a pointer (reference) to a particular item of the "LISTA_SEMANAL" folder (or table) in Firebase. We sotore the reference because it is the reference that has the ".on" (listener) method as well as the ".push" method. It will be created when Edit Mode is on to submit the info in the fields to a specific existing item.
+var listaTrabajadoresRef = database.ref("TRABAJADORES"); // LISTA DE TRABAJADORES REFERENCE>> stores a pointer (reference) to the "TRABAJADORES" folder (or table) in Firebase. We sotore the reference because it is the reference that has the ".on" (listener) method as well as the ".push" method.
 
 
 
 // ================================= ON FIREBASE "LISTA_SEMANAL" FOLDER CHANGE
 
 
-listaSemanalRef.on("value", gotData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
+listaSemanalRef.on("value", gotLiSemData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
 
-function gotData(data) {
+function gotLiSemData(data) {
     listaSemanal = data.val(); // Storing the new (recently changed) "LISTA_SEMANAL" json object in Firebase.
     keysArr = Object.keys(listaSemanal); // Storing as array all the ID from "LISTA_SEMANAL" json object in Firebase.
 
@@ -175,7 +176,9 @@ function gotData(data) {
             "<td class='selector' idRef='" + idInTab + "'>" + idInTab + "</td>" +
             "<td>" + obraInTab + "</td>" +
             "<td>" + contratistaInTab + "</td>" +
-            "<td>" + nombreInTab + "</td>" +
+            "<td id='" + "nomInReg-" + 
+            nombreInTab + "'>" + 
+            nombreInTab + "</td>" +
             "<td>" + rangoInTab + "</td>" +
             "<td>" + sabadoInTab + "</td>" +
             "<td>" + LunInTab + "</td>" +
@@ -208,9 +211,6 @@ function gotData(data) {
     }
 }
 
-function errData(err) {
-    console.log("Error: " + err);
-}
 
 function findTrabajador(nombre) { // FIND TRABAJADOR>> Is a function to retrieve the index of any given "trabajador" from the "TRABAJADORES" json object in Firebase.
     for (i = 0; i < keysArr.length; i++) {
@@ -222,6 +222,29 @@ function findTrabajador(nombre) { // FIND TRABAJADOR>> Is a function to retrieve
     }
 }
 
+
+
+// ================================= ON FIREBASE "LISTA DE TRABAJADORES" FOLDER CHANGE
+
+
+listaTrabajadoresRef.on("value", gotLiTraData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
+
+function gotLiTraData(data) {   // This will dinamcally add new options for "Nombre del trabajador" select input control so the user can choose from new trabajadores.
+    listaTrabajadores = data.val(); // Storing the new (recently changed) "TRABAJADORES" json object in Firebase.
+    var numOfTrabajadores = Object.keys(listaTrabajadores).length;
+    var listaTrabajadoresArr = [];
+    for (var x in listaTrabajadores) {
+        listaTrabajadoresArr.push(listaTrabajadores[x].NOMBRE); // Pushing all "NOMBRE" values to the array.
+    }   // This loop will read all the json objcet properties of "listaTrabajadores" one by one. Additionally, since each one of those properties is an oject as well, wi will acces the "NOMBRE" value with the dot (".") notation.
+    $("#nombre").html(
+        "<option " +
+        "selected disabled>Seleccionar</option>");
+    listaTrabajadoresArr.forEach(function (element) {
+        $("#nombre").append(
+            "<option>" + element + "</option>");
+    })
+
+}
 
 // ================================= SUBMIT BUTTON CLICK
 
@@ -342,13 +365,14 @@ $("#submit-bid").on("click", function (event) {
 
 // ================================= ID TABLE FIELD CLICK
 
+
 $(document).on("click", ".selector", function (event) {
 
     trabajadorID = $(this).attr("idRef");
 
     editMode = true;
 
-    listaSemanalRef.once("value", gotChild);
+    listaSemanalRef.once("value", gotChild, errData);
 
     function gotChild(data) {
         
@@ -381,23 +405,9 @@ $(document).on("click", ".selector", function (event) {
 
 
 
-// ================================= ON DATA EXISTING LISTENER
+// ================================= ERROR DATA CATCHER FUNCTION
 
 
-// trabajadoresRef.orderByChild("DateAdded").limitToLast(1).on("child_added", function (snapshot) {
-//     var fetchName = snapshot.val().NOMBRE;
-//     var fetchRole = snapshot.val().RANGO;
-//     var fetchRate = snapshot.val().RAYA_SEMANAL;
-
-//     console.log(fetchName);
-//     console.log(fetchRole);
-//     console.log(fetchRate);
-
-//     var $newRow = $("<tr>" +
-//         "<td>" + fetchName + "</td>" +
-//         "<td>" + fetchRole + "</td>" +
-//         "<td>" + fetchRate + "</td>" +
-//         "</tr>");
-//     $("table > tbody:last").append($newRow);
-
-// })
+function errData(err) {
+    console.log("ELVAN, ASSISTANCE_LIST ERROR: " + err);
+}
