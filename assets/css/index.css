@@ -1,13 +1,35 @@
+.jumbotron {
+    margin-bottom: 25px;
+    padding: 20px 0px;
+    border-radius: .25rem;
+
+}
+h3 {
+    margin: 0;
+}
+.row {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
 .tableDiv {
     overflow: auto;
     /* background-color: black;
     color: white; */
     font-size: 9pt;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
 }
 
-/* .id {
-    width: 40px;
-} */
+.table thead, .table th, .table td {
+    padding: 5px;
+    border: 0;
+}
+
+.selector:hover {
+    color: white;
+    background-color: black;
+    
+}
 
 .weekDaysContainer {
     display: flex;
