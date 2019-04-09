@@ -166,7 +166,17 @@ function gotLiSemData(data) {
         var impTotalConFormato = currencyFormatrer.format(impTotal); // Assigning the formatted "DESCUENTO" to a value.
         var descuentosConFormato = currencyFormatrer.format(totalDescuentos); // Assigning the formatted "DESCUENTO" to a value.
 
+        var verificaSabado = moment(String(sabadoInTab)).format("dddd");    // Extract the day so we can check whether it is Saturday.
 
+        var warning;
+        if (verificaSabado !== "Saturday") {
+            sabadoInTab = "No escogió sábado";
+            warning = "caution";    // Add a class to give a previously set css red background color if the date is not Saturda. We keep the field in simple format to later copy/paste it in Excel.
+        } else {
+            warning = "ok";
+        }
+
+        
         // ============================ FORMAT FIELDS
 
 
@@ -180,7 +190,8 @@ function gotLiSemData(data) {
             nombreInTab + "'>" + 
             nombreInTab + "</td>" +
             "<td>" + rangoInTab + "</td>" +
-            "<td>" + sabadoInTab + "</td>" +
+            "<td class='" + warning + "'>" + 
+            sabadoInTab + "</td>" +
             "<td>" + LunInTab + "</td>" +
             "<td>" + LunExInTab + "</td>" +
             "<td>" + MarInTab + "</td>" +
@@ -206,7 +217,7 @@ function gotLiSemData(data) {
             "</tr>");
         $("table > tbody:last").append(newRow); // Creating the new row(s) and appending it(them) to the cleared table.
 
-        findTrabajador(nombreInTab);
+        // findTrabajador(nombreInTab);
 
     }
 }
