@@ -12,6 +12,9 @@
   <!-- Link to BOOTSTRAP. -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
   <!-- Metatag to start setting resposiveness -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- link to CSS. -->
@@ -32,7 +35,20 @@
     <br>
 
     <!-- ==================================================== HEADDER -->
-
+    <div class="pos-f-t">
+      <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+          <h5 class="text-white h4">Collapsed content</h5>
+          <span class="text-muted">Toggleable via the navbar brand.</span>
+        </div>
+      </div>
+      <nav class="navbar navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+          aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+    </div>
 
     <div class="jumbotron jumbotron-fluid bg-dark text-light">
       <h3 class="text-center">REGISTRO DE LISTA DE ASISTENCIA</h3>
@@ -115,7 +131,7 @@
                 <label for="nombre">Nombre del trabajador</label>
                 <select class="form-control selectpicker" id="nombre">
                   <option></option>
-                  
+
                 </select>
               </div>
               <div class="form-group row">
