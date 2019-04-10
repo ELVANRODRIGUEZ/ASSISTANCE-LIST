@@ -42,6 +42,12 @@ a {
     border-bottom: 1px solid #f3f3f3; 
 }
 
+td.selector {
+    min-width: 70px;
+    font-size: 8pt;
+    word-break: break-all;
+}
+
 .selector:hover {
     color: white;
     background-color: black;

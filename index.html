@@ -49,7 +49,7 @@
   <div class="pos-f-t">
     <div class="collapse" id="navbarToggleExternalContent">
       <div class="bg-dark p-4">
-          <a href="listaTrabajadores.html">AÑADIR TRABAJADORES</a>
+        <a href="listaTrabajadores.html">AÑADIR TRABAJADORES</a>
       </div>
     </div>
     <nav class="navbar navbar-dark bg-dark">
@@ -132,12 +132,9 @@
                 <input class="form-control" id="contratista" type="text">
               </div>
               <div class="form-group row">
-                <!-- <label for="nombre">Nombre del trabajador</label>
-                <input class="form-control" id="nombre" type="text"> -->
                 <label for="nombre">Nombre del trabajador</label>
                 <select class="form-control selectpicker" id="nombre">
                   <option></option>
-
                 </select>
               </div>
               <div class="form-group row">
@@ -198,9 +195,17 @@
                 <label for="descuentos">Descuentos ($)</label>
                 <input class="form-control" id="descuentos" type="number">
               </div>
-              <div class="form-group row">
+              <!-- <div class="form-group row">
                 <label for="formaPago">Forma de pago</label>
                 <input class="form-control" id="formaPago" type="text">
+              </div> -->
+              <div class="form-group row">
+                <label for="formaPago">Forma de pago</label>
+                <select class="form-control selectpicker" id="formaPago">
+                  <option selected disabled>Seleccionar</option>
+                  <option>EFECTIVO</option>
+                  <option>TARJETA</option>
+                </select>
               </div>
               <div class="form-group row">
                 <label for="observaciones">Observaciones</label>
