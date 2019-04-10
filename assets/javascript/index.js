@@ -214,6 +214,12 @@ function gotLiSemData(data) {
             "<td>" + impTotalConFormato + "</td>" +
             "<td>" + formaPagoInTab + "</td>" +
             "<td>" + observacionesInTab + "</td>" +
+            "<td><button type='button' " +
+            " id=fieldEraser refId='" +
+            idInTab + "' class='btn btn-warning'" +
+            "data-toggle='modal'" +
+            "data-target='#exampleModal'" +
+            ">Borrar</button></td>" +
             "</tr>");
         $("table > tbody:last").append(newRow); // Creating the new row(s) and appending it(them) to the cleared table.
 
@@ -412,6 +418,19 @@ $(document).on("click", ".selector", function (event) {
         $("#observaciones").val(trabajadorInfo.OBSERVACIONES);
     }
 
+})
+
+
+
+
+// ================================= BORRAR CLICK
+
+
+$(document).on("click", "#fieldEraser", function () {
+    var idToErase = $(this).attr("refID");
+    $("#goErase").on("click", function () {
+        database.ref("LISTA_SEMANAL/" + idToErase).remove();
+    })
 })
 
 
