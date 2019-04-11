@@ -79,16 +79,13 @@ listaSemanalRef.orderByChild("OBRA").on("value", gotLiSemData, errData); // Even
 
 function gotLiSemData(data) {
     listaSemanal = data.val(); // Storing the new (recently changed) "LISTA_SEMANAL" json object in Firebase.
-    keysArr = []; // Storing as array all the ID from "LISTA_SEMANAL" json object in Firebase.
+    keysArr = []; 
 
     // =======================
 
     data.forEach(function(element){
-        keysArr.push(element.key);
+        keysArr.push(element.key);  // Storing as array all the ID from "LISTA_SEMANAL" in Firebase that is going to be passed on one by one.
     })
-
-
-
 
     // =======================
 
@@ -343,7 +340,6 @@ $("#submit-bid").on("click", function (event) {
     } else {
 
         editMode = false;
-        console.log("Submit Event: Edit Mode is off");
         database.ref("LISTA_SEMANAL/" + trabajadorID).set({
             OBRA: obra,
             CONTRATISTA: contratista,

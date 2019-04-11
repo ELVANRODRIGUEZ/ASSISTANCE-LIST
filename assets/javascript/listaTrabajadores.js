@@ -40,7 +40,7 @@ var trabajadorID; // TRABAJADOR ID>> will store a selected id from the table's r
 
 var trabajadoresRef = database.ref("TRABAJADORES"); // TRABAJADORES REFERENCE>> stores a pointer (reference) to the "TRABAJADORES" folder (or table) in Firebase. We sotore the reference because it is the reference that has the ".on" (listener) method.
 
-trabajadoresRef.on("value", gotData, errData); // Event listener for "trabajadoresRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
+trabajadoresRef.orderByChild("NOMBRE").on("value", gotData, errData); // Event listener for "trabajadoresRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
 
 
 
@@ -49,7 +49,17 @@ trabajadoresRef.on("value", gotData, errData); // Event listener for "trabajador
 
 function gotData(data) {
     trabajadores = data.val(); // Storing the new (recently changed) "TRABAJADORES" json object in Firebase.
-    keysArr = Object.keys(trabajadores); // Storing as array all the ID from "TRABAJADORES" json object in Firebase.
+    keysArr = []; // Storing as array all the ID from "TRABAJADORES" json object in Firebase.
+
+
+     // =======================
+
+     data.forEach(function(element){
+        keysArr.push(element.key);  // Storing as array all the ID from "LISTA_SEMANAL" in Firebase that is going to be passed on one by one.
+    })
+
+    // =======================
+
 
     $("tbody").empty(); // Clearing the HTML table to retrieve the most recent one.
 
