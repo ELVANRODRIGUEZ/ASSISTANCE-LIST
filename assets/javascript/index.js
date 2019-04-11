@@ -64,7 +64,7 @@ var keysArr; // KEYS ARRAY>> will store all of "listaSemanal" ID's values in arr
 var k; // KEY>> will store one given element from the "keysArr" array.
 var nombreInTab; // NOMBRE IN TABLE>> will store a certain "NOMBRE" value from the "trabajadores" specific item.
 var trabajadorID; // TRABAJADOR ID>> will store a selected id from the table's rows for edition mode.
-var listaTrabajadores;  // LISTA DE TRABAJADORES// wil store all listaTrabajadores existing on TRABAJADORES folder on Firebase.
+var listaTrabajadores; // LISTA DE TRABAJADORES// wil store all listaTrabajadores existing on TRABAJADORES folder on Firebase.
 
 var listaSemanalRef = database.ref("LISTA_SEMANAL"); // LISTA SEMANAL REFERENCE>> stores a pointer (reference) to the "LISTA_SEMANAL" folder (or table) in Firebase. We sotore the reference because it is the reference that has the ".on" (listener) method as well as the ".push" method.
 
@@ -166,17 +166,17 @@ function gotLiSemData(data) {
         var impTotalConFormato = currencyFormatrer.format(impTotal); // Assigning the formatted "DESCUENTO" to a value.
         var descuentosConFormato = currencyFormatrer.format(totalDescuentos); // Assigning the formatted "DESCUENTO" to a value.
 
-        var verificaSabado = moment(String(sabadoInTab)).format("dddd");    // Extract the day so we can check whether it is Saturday.
+        var verificaSabado = moment(String(sabadoInTab)).format("dddd"); // Extract the day so we can check whether it is Saturday.
 
         var warning;
         if (verificaSabado !== "Saturday") {
             sabadoInTab = "No escogió sábado";
-            warning = "caution";    // Add a class to give a previously set css red background color if the date is not Saturda. We keep the field in simple format to later copy/paste it in Excel.
+            warning = "caution"; // Add a class to give a previously set css red background color if the date is not Saturda. We keep the field in simple format to later copy/paste it in Excel.
         } else {
             warning = "ok";
         }
 
-        
+
         // ============================ FORMAT FIELDS
 
 
@@ -186,11 +186,11 @@ function gotLiSemData(data) {
             "<td class='selector' idRef='" + idInTab + "'>" + idInTab + "</td>" +
             "<td>" + obraInTab + "</td>" +
             "<td>" + contratistaInTab + "</td>" +
-            "<td id='" + "nomInReg-" + 
-            nombreInTab + "'>" + 
+            "<td id='" + "nomInReg-" +
+            nombreInTab + "'>" +
             nombreInTab + "</td>" +
             "<td>" + rangoInTab + "</td>" +
-            "<td class='" + warning + "'>" + 
+            "<td class='" + warning + "'>" +
             sabadoInTab + "</td>" +
             "<td>" + LunInTab + "</td>" +
             "<td>" + LunExInTab + "</td>" +
@@ -246,22 +246,39 @@ function findTrabajador(nombre) { // FIND TRABAJADOR>> Is a function to retrieve
 
 listaTrabajadoresRef.on("value", gotLiTraData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
 
-function gotLiTraData(data) {   // This will dinamcally add new options for "Nombre del trabajador" select input control so the user can choose from new trabajadores.
+function gotLiTraData(data) { // This will dinamcally add new options for "Nombre del trabajador" select input control so the user can choose from new trabajadores.
     listaTrabajadores = data.val(); // Storing the new (recently changed) "TRABAJADORES" json object in Firebase.
     var numOfTrabajadores = Object.keys(listaTrabajadores).length;
-    var listaTrabajadoresArr = [];
-    for (var x in listaTrabajadores) {
-        listaTrabajadoresArr.push(listaTrabajadores[x].NOMBRE); // Pushing all "NOMBRE" values to the array.
-    }   // This loop will read all the json objcet properties of "listaTrabajadores" one by one. Additionally, since each one of those properties is an oject as well, wi will acces the "NOMBRE" value with the dot (".") notation.
     $("#nombre").html(
         "<option " +
         "selected disabled>Seleccionar</option>");
-    listaTrabajadoresArr.forEach(function (element) {
+    var counter1 = 0;
+
+    for (var x in listaTrabajadores) {
+        var TrabajadorId = Object.keys(listaTrabajadores)[counter1]; // Creating a variable to store the ID of each "trabajador" and pass it on the selectable options as an attribute value.
+
         $("#nombre").append(
-            "<option>" + element + "</option>");
-    })
+            "<option idRef='" + TrabajadorId +  
+            "'>" + listaTrabajadores[x].NOMBRE + "</option>");
+
+        counter1++;
+
+    } // This loop will read all the json objcet properties of "listaTrabajadores" one by one. Additionally, since each one of those properties is an oject as well, wi will acces the "NOMBRE" value with the dot (".") notation and add it as an option in "listaTrabajadoresObject".
 
 }
+
+
+$("#nombre").on("change", function () {
+    var trabajadorItem = $("option:selected", this).attr("idRef");  // We are retrieving the Id stored on the option "idRef" attribute.
+    listaTrabajadoresRef.once("value", gotTrabajador, errData); // Listening to the "value" event to trigger a function that has the data parsed as a json object as the first parameter by default. We will need it to search for the above obtained ID.
+
+    function gotTrabajador(data) {
+        var trabajadorInfo = listaTrabajadores[trabajadorItem]; // "listaTrabajadores" was already defined when "Nombre del trabajador" option input was populated. We are retrieving the Id stored on the option
+        $("#rango").val(trabajadorInfo.RANGO);
+        $("#raya").val(trabajadorInfo.RAYA_SEMANAL);
+        
+    }
+})
 
 // ================================= SUBMIT BUTTON CLICK
 
@@ -392,7 +409,7 @@ $(document).on("click", ".selector", function (event) {
     listaSemanalRef.once("value", gotChild, errData);
 
     function gotChild(data) {
-        
+
         var trabajadorInfo = listaSemanal[trabajadorID];
         $("#obra").val(trabajadorInfo.OBRA);
         $("#contratista").val(trabajadorInfo.CONTRATISTA);
