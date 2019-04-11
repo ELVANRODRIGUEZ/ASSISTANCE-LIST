@@ -75,11 +75,23 @@ var listaTrabajadoresRef = database.ref("TRABAJADORES"); // LISTA DE TRABAJADORE
 // ================================= ON FIREBASE "LISTA_SEMANAL" FOLDER CHANGE
 
 
-listaSemanalRef.on("value", gotLiSemData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
+listaSemanalRef.orderByChild("OBRA").on("value", gotLiSemData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
 
 function gotLiSemData(data) {
     listaSemanal = data.val(); // Storing the new (recently changed) "LISTA_SEMANAL" json object in Firebase.
-    keysArr = Object.keys(listaSemanal); // Storing as array all the ID from "LISTA_SEMANAL" json object in Firebase.
+    keysArr = []; // Storing as array all the ID from "LISTA_SEMANAL" json object in Firebase.
+
+    // =======================
+
+    data.forEach(function(element){
+        keysArr.push(element.key);
+    })
+
+
+
+
+    // =======================
+
 
     $("tbody").empty(); // Clearing the HTML table to retrieve the most recent one.
 
@@ -244,39 +256,29 @@ function findTrabajador(nombre) { // FIND TRABAJADOR>> Is a function to retrieve
 // ================================= ON FIREBASE "LISTA DE TRABAJADORES" FOLDER CHANGE
 
 
-listaTrabajadoresRef.on("value", gotLiTraData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
+listaTrabajadoresRef.orderByChild("NOMBRE").on("child_added", gotLiTraData, errData); // Event listener for "listaSemanalRef" reference each time a new child is added and also when the page loads first. It will make a callback to "gotLiTraData" and (or) "errData" functions for each existing child and will retrieve them all sorted out by "NOMBRE" child value.
 
-function gotLiTraData(data) { // This will dinamcally add new options for "Nombre del trabajador" select input control so the user can choose from new trabajadores.
-    listaTrabajadores = data.val(); // Storing the new (recently changed) "TRABAJADORES" json object in Firebase.
-    var numOfTrabajadores = Object.keys(listaTrabajadores).length;
-    $("#nombre").html(
-        "<option " +
-        "selected disabled>Seleccionar</option>");
-    var counter1 = 0;
-
-    for (var x in listaTrabajadores) {
-        var TrabajadorId = Object.keys(listaTrabajadores)[counter1]; // Creating a variable to store the ID of each "trabajador" and pass it on the selectable options as an attribute value.
-
-        $("#nombre").append(
-            "<option idRef='" + TrabajadorId +  
-            "'>" + listaTrabajadores[x].NOMBRE + "</option>");
-
-        counter1++;
-
-    } // This loop will read all the json objcet properties of "listaTrabajadores" one by one. Additionally, since each one of those properties is an oject as well, wi will acces the "NOMBRE" value with the dot (".") notation and add it as an option in "listaTrabajadoresObject".
+function gotLiTraData(data) { // This will dinamcally add new options for "Nombre del trabajador" select input control so the user can choose from new trabajadores. This function will run at loading time for each one of the existing childs in "TRABAJADORES" directory, and each time a new child is added.
+    listaTrabajadores = data.val(); // This retrieves, one by one, each one of the childs in "TRABAJADOREA" directory as a json object in Firebase.
+    
+    var TrabajadorId = data.key;    // This retrieves the original Id from each one of the existing childs on "TRABAJADORES" directory.
+    $("#nombre").append(
+        "<option idRef='" + TrabajadorId +
+        "'>" + listaTrabajadores.NOMBRE + "</option>");
 
 }
 
 
 $("#nombre").on("change", function () {
-    var trabajadorItem = $("option:selected", this).attr("idRef");  // We are retrieving the Id stored on the option "idRef" attribute.
+    var trabajadorItem = $("option:selected", this).attr("idRef"); // We are retrieving the Id stored on the option "idRef" attribute.
     listaTrabajadoresRef.once("value", gotTrabajador, errData); // Listening to the "value" event to trigger a function that has the data parsed as a json object as the first parameter by default. We will need it to search for the above obtained ID.
 
     function gotTrabajador(data) {
+        listaTrabajadores = data.val();
         var trabajadorInfo = listaTrabajadores[trabajadorItem]; // "listaTrabajadores" was already defined when "Nombre del trabajador" option input was populated. We are retrieving the Id stored on the option
         $("#rango").val(trabajadorInfo.RANGO);
         $("#raya").val(trabajadorInfo.RAYA_SEMANAL);
-        
+
     }
 })
 
