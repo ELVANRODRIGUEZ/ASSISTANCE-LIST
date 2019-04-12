@@ -47,13 +47,16 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">SE BORRARÁ ESTE REGISTRO</h6>
+          <h6 class="modal-title" id="exampleModalLabel">¿QUÉ DESEA HACER CON EL REGISTRO?</h6>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <button type="button" id="goErase" class="btn btn-primary" data-dismiss="modal">OK</button>
+          <button type="button" id="goErase" class="btn btn-danger" data-dismiss="modal">BORRAR</button>
+        </div>
+        <div class="modal-body">
+          <button type="button" id="goEdit" class="btn btn-warning" data-dismiss="modal">EDITAR</button>
         </div>
       </div>
     </div>
@@ -86,50 +89,51 @@
         <div class="card card-header">
           LISTA SEMANAL POR TRABAJADOR
         </div>
+
+
+
+        <!-- ==================================================== TABLE -->
+
+        <div class="tableDiv">
+          <table class="table ">
+            <thead>
+              <tr>
+                <th class="id" scope="col"></th>
+                <th scope="col">OBRA</th>
+                <th scope="col">CONTRATISTA</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">RANGO</th>
+                <th scope="col">FECHA (A SÁBADOS)</th>
+                <th scope="col">LUN</th>
+                <th scope="col">LU-E</th>
+                <th scope="col">MAR</th>
+                <th scope="col">MA-E</th>
+                <th scope="col">MIE</th>
+                <th scope="col">MI-E</th>
+                <th scope="col">JUE</th>
+                <th scope="col">JU-E</th>
+                <th scope="col">VIE</th>
+                <th scope="col">VI-E</th>
+                <th scope="col">SAB</th>
+                <th scope="col">SA-E</th>
+                <th scope="col">DO-E</th>
+                <th scope="col">TOTAL HRS</th>
+                <th scope="col">TOTAL HRS EX</th>
+                <th scope="col">RAYA SEMANAL</th>
+                <th scope="col">IMPORTE BASE</th>
+                <th scope="col">IMPORTE EXTRA</th>
+                <th scope="col">DESCUENTOS</th>
+                <th scope="col">IMPORTE TOTAL</th>
+                <th scope="col">FORMA DE PAGO</th>
+                <th scope="col">OBSERVACIONES</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-
-
-    <!-- ==================================================== TABLE -->
-
-    <div class="tableDiv">
-      <table class="table ">
-        <thead>
-          <tr>
-            <th class="id" scope="col">ID</th>
-            <th scope="col">OBRA</th>
-            <th scope="col">CONTRATISTA</th>
-            <th scope="col">NOMBRE</th>
-            <th scope="col">RANGO</th>
-            <th scope="col">FECHA (A SÁBADOS)</th>
-            <th scope="col">LUN</th>
-            <th scope="col">LU-E</th>
-            <th scope="col">MAR</th>
-            <th scope="col">MA-E</th>
-            <th scope="col">MIE</th>
-            <th scope="col">MI-E</th>
-            <th scope="col">JUE</th>
-            <th scope="col">JU-E</th>
-            <th scope="col">VIE</th>
-            <th scope="col">VI-E</th>
-            <th scope="col">SAB</th>
-            <th scope="col">SA-E</th>
-            <th scope="col">DO-E</th>
-            <th scope="col">TOTAL HRS</th>
-            <th scope="col">TOTAL HRS EX</th>
-            <th scope="col">RAYA SEMANAL</th>
-            <th scope="col">IMPORTE BASE</th>
-            <th scope="col">IMPORTE EXTRA</th>
-            <th scope="col">DESCUENTOS</th>
-            <th scope="col">IMPORTE TOTAL</th>
-            <th scope="col">FORMA DE PAGO</th>
-            <th scope="col">OBSERVACIONES</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
     </div>
 
 

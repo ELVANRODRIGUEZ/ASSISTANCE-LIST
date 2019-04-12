@@ -72,6 +72,7 @@ var listaTrabajadoresRef = database.ref("TRABAJADORES"); // LISTA DE TRABAJADORE
 
 
 
+
 // ================================= ON FIREBASE "LISTA_SEMANAL" FOLDER CHANGE
 
 
@@ -119,6 +120,8 @@ function gotLiSemData(data) {
         var formaPagoInTab = listaSemanal[k].FORMA_DE_PAGO; // Storing "FORMA_DE_PAGO" from the table in each loop.
         var observacionesInTab = listaSemanal[k].OBSERVACIONES; // Storing "OBSERVACIONES" from the table in each loop.   
 
+
+
         // ============================ BUILD THE CALCULATED FIELDS
 
         function testAndSumNumVal(arr) {
@@ -157,11 +160,8 @@ function gotLiSemData(data) {
         impTotal = impBase + impExtra - totalDescuentos;
 
 
-        // ============================ BUILD THE CALCULATED FIELDS
-
 
         // ============================ FORMAT FIELDS
-
 
         var currencyFormatrer = new Intl.NumberFormat("es-MX", { // "Intl.NumberFormat" is a class (object constructor) to change the formmat of a numeric value.
             style: "currency",
@@ -186,13 +186,17 @@ function gotLiSemData(data) {
         }
 
 
-        // ============================ FORMAT FIELDS
-
 
         // ============================ APPEND FIELDS
 
         var newRow = $("<tr>" +
-            "<td class='selector' idRef='" + idInTab + "'>" + idInTab + "</td>" +
+            "<td class='selector' idRef='" + idInTab + "'>" +
+            "<button type='button' " +
+            " id=fieldEraser refId='" +
+            idInTab + "' class='btn btn-dark'" +
+            "data-toggle='modal'" +
+            "data-target='#exampleModal'" +
+            ">E</button></td>" +
             "<td>" + obraInTab + "</td>" +
             "<td>" + contratistaInTab + "</td>" +
             "<td id='" + "nomInReg-" +
@@ -223,12 +227,6 @@ function gotLiSemData(data) {
             "<td>" + impTotalConFormato + "</td>" +
             "<td>" + formaPagoInTab + "</td>" +
             "<td>" + observacionesInTab + "</td>" +
-            "<td><button type='button' " +
-            " id=fieldEraser refId='" +
-            idInTab + "' class='btn btn-warning'" +
-            "data-toggle='modal'" +
-            "data-target='#exampleModal'" +
-            ">Borrar</button></td>" +
             "</tr>");
         $("table > tbody:last").append(newRow); // Creating the new row(s) and appending it(them) to the cleared table.
 
@@ -247,6 +245,7 @@ function findTrabajador(nombre) { // FIND TRABAJADOR>> Is a function to retrieve
         }
     }
 }
+
 
 
 
@@ -278,6 +277,9 @@ $("#nombre").on("change", function () {
 
     }
 })
+
+
+
 
 // ================================= SUBMIT BUTTON CLICK
 
@@ -395,12 +397,14 @@ $("#submit-bid").on("click", function (event) {
 })
 
 
+
+
 // ================================= ID TABLE FIELD CLICK
 
 
-$(document).on("click", ".selector", function (event) {
+function editListaRow(trabajadorID) {
 
-    trabajadorID = $(this).attr("idRef");
+    
 
     editMode = true;
 
@@ -433,7 +437,7 @@ $(document).on("click", ".selector", function (event) {
         $("#observaciones").val(trabajadorInfo.OBSERVACIONES);
     }
 
-})
+}
 
 
 
@@ -442,11 +446,13 @@ $(document).on("click", ".selector", function (event) {
 
 
 $(document).on("click", "#fieldEraser", function () {
-    var idToErase = $(this).attr("refID");
+    var idToManage = $(this).attr("refID");
     $("#goErase").on("click", function () {
-        database.ref("LISTA_SEMANAL/" + idToErase).remove();
+        database.ref("LISTA_SEMANAL/" + idToManage).remove();
     })
+    $("#goEdit").on("click", editListaRow(idToManage));
 })
+
 
 
 

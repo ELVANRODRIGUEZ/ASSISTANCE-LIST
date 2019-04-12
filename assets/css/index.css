@@ -30,7 +30,8 @@ a {
     color: white; */
     font-size: 9pt;
     border: 1px solid #dee2e6;
-    border-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: .25rem;
 }
 
 .table thead, .table th, .table td {
@@ -49,11 +50,6 @@ td.selector {
     word-break: break-all;
 }
 
-.selector:hover {
-    color: white;
-    background-color: black;
-    
-}
 
 .caution {
     background-color: red;
