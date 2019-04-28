@@ -1,17 +1,20 @@
 
+/* ============================== GENERAL */
+html,
+body {
+    zoom: 100%;
+    width: 100%;
+    min-width: 390px;
+    min-height: 100vh;
+
+}
+
 .container {
     height: 100%;
     padding: 15px;
-}
-.jumbotron {
-    margin-bottom: 0px;
-    padding: 25px 0px;
-
+    max-width: 100%;
 }
 
-a:visited {
-    color: white;
-}
 h3 {
     margin: 0;
 }
@@ -19,24 +22,47 @@ h3 {
 a {
     font-size: 14pt;
 }
-            
+
+a:visited {
+    color: white;
+}
+
+.card-header {
+    background-color: #343a40;
+    color: #fff;
+    border: 1px solid #343a40;
+}
+
+
+/* ============================== JUMBOTRON */
+
+.jumbotron {
+    margin-bottom: 0px;
+    padding: 25px 0px;
+
+}
+
+
+
+/* ============================== TABLE */
+
 .row {  
     margin-bottom: 15px;
     margin-top: 15px;
 }
 .tableDiv {
     overflow: auto;
-    /* background-color: black;
-    color: white; */
     font-size: 9pt;
-    border: 1px solid #dee2e6;
-    border-bottom-right-radius: .25rem;
-    border-bottom-left-radius: .25rem;
+    margin: 15px 6px;
+    padding: 0px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
 }
 
-.table thead, .table th, .table td {
+.table thead, .table th {
     padding: 5px;
-    border: 0;
+    border: 1px solid #c2c2c2;
+    background-color: rgba(0,0,0,.03);
 }
 
 .table td {
@@ -51,9 +77,16 @@ td.selector {
 }
 
 
+
+/* ============================== MODAL */
+
 .caution {
     background-color: red;
 }
+
+
+
+/* ============================== WEEK DAYS CONTAINER */
 
 .weekDaysContainer {
     display: flex;
@@ -81,6 +114,10 @@ td.selector {
     padding: 4px;
     font-size: 14px;
 }
+
+
+
+/* ============================== SUBMIT */
 
 .btn {
     margin-left: 50%;

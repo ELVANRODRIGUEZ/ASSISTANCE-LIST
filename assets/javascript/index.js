@@ -14,7 +14,6 @@ var config = {
 firebase.initializeApp(config);
 
 
-
 // ================================= GLOBAL VARIABLES
 
 // Create a variable to reference the database.
@@ -71,21 +70,18 @@ var listaSemanalRef = database.ref("LISTA_SEMANAL"); // LISTA SEMANAL REFERENCE>
 var listaTrabajadoresRef = database.ref("TRABAJADORES"); // LISTA DE TRABAJADORES REFERENCE>> stores a pointer (reference) to the "TRABAJADORES" folder (or table) in Firebase. We sotore the reference because it is the reference that has the ".on" (listener) method as well as the ".push" method.
 
 
-
-
 // ================================= ON FIREBASE "LISTA_SEMANAL" FOLDER CHANGE
-
 
 listaSemanalRef.orderByChild("OBRA").on("value", gotLiSemData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
 
 function gotLiSemData(data) {
     listaSemanal = data.val(); // Storing the new (recently changed) "LISTA_SEMANAL" json object in Firebase.
-    keysArr = []; 
+    keysArr = [];
 
     // =======================
 
-    data.forEach(function(element){
-        keysArr.push(element.key);  // Storing as array all the ID from "LISTA_SEMANAL" in Firebase that is going to be passed on one by one.
+    data.forEach(function (element) {
+        keysArr.push(element.key); // Storing as array all the ID from "LISTA_SEMANAL" in Firebase that is going to be passed on one by one.
     })
 
     // =======================
@@ -247,23 +243,22 @@ function findTrabajador(nombre) { // FIND TRABAJADOR>> Is a function to retrieve
 }
 
 
-
-
 // ================================= ON FIREBASE "LISTA DE TRABAJADORES" FOLDER CHANGE
-
 
 listaTrabajadoresRef.orderByChild("NOMBRE").on("child_added", gotLiTraData, errData); // Event listener for "listaSemanalRef" reference each time a new child is added and also when the page loads first. It will make a callback to "gotLiTraData" and (or) "errData" functions for each existing child and will retrieve them all sorted out by "NOMBRE" child value.
 
 function gotLiTraData(data) { // This will dinamcally add new options for "Nombre del trabajador" select input control so the user can choose from new trabajadores. This function will run at loading time for each one of the existing childs in "TRABAJADORES" directory, and each time a new child is added.
     listaTrabajadores = data.val(); // This retrieves, one by one, each one of the childs in "TRABAJADOREA" directory as a json object in Firebase.
-    
-    var TrabajadorId = data.key;    // This retrieves the original Id from each one of the existing childs on "TRABAJADORES" directory.
+
+    var TraExistente = data.key; // This retrieves the original Id from each one of the existing childs on "TRABAJADORES" directory.
     $("#nombre").append(
-        "<option idRef='" + TrabajadorId +
+        "<option idRef='" + TraExistente +
         "'>" + listaTrabajadores.NOMBRE + "</option>");
 
 }
 
+
+// ================================= SELECTIN TRABAJADOR
 
 $("#nombre").on("change", function () {
     var trabajadorItem = $("option:selected", this).attr("idRef"); // We are retrieving the Id stored on the option "idRef" attribute.
@@ -279,10 +274,7 @@ $("#nombre").on("change", function () {
 })
 
 
-
-
 // ================================= SUBMIT BUTTON CLICK
-
 
 $("#submit-bid").on("click", function (event) {
 
@@ -311,9 +303,9 @@ $("#submit-bid").on("click", function (event) {
     formaPago = $("#formaPago").val();
     observaciones = $("#observaciones").val();
 
-    if (!editMode) {
+    if (!editMode) { // This will add (push) a new "lista semanal" on the Firebase "LISTA_SEMANAL" folder (or table) with the values assigned to the correspondant named variables. Or, it will update the info of an existing item if Edition Mode is on.
 
-        listaSemanalRef.push({ // This will add a new "lista semanal" on the Firebase "LISTA_SEMANAL" folder (or table) with the values assign to the correspondant named variables. Or, it will store push the info to an existing item if Edition Mode is on.
+        listaSemanalRef.push({
             OBRA: obra,
             CONTRATISTA: contratista,
             NOMBRE: nombre,
@@ -340,7 +332,6 @@ $("#submit-bid").on("click", function (event) {
         })
 
     } else {
-
         editMode = false;
         database.ref("LISTA_SEMANAL/" + trabajadorID).set({
             OBRA: obra,
@@ -368,6 +359,7 @@ $("#submit-bid").on("click", function (event) {
             DateAdded: firebase.database.ServerValue.TIMESTAMP // This will add a timestamp for the pushed item.
         });
 
+        changeToEditMode("off");
 
     }
 
@@ -394,25 +386,38 @@ $("#submit-bid").on("click", function (event) {
     $("#formaPago").val("");
     $("#observaciones").val("");
 
+    window.scrollTo(0, 0);
+
 })
 
 
+// ================================= EDIT/ERASE BUTTON CLICK
 
+$(document).on("click", "#fieldEraser", function () {
+    trabajadorID = $(this).attr("refID");
 
-// ================================= ID TABLE FIELD CLICK
+});
 
+$("#goErase").on("click", function () {
+    database.ref("LISTA_SEMANAL/" + trabajadorID).remove();
+});
 
-function editListaRow(trabajadorID) {
+$("#goEdit").on("click", function () {
+    console.log(trabajadorID);
+    editListaRow(trabajadorID);
+});
 
-    
+function editListaRow(id) {
 
     editMode = true;
+
+    changeToEditMode("on");
 
     listaSemanalRef.once("value", gotChild, errData);
 
     function gotChild(data) {
 
-        var trabajadorInfo = listaSemanal[trabajadorID];
+        var trabajadorInfo = listaSemanal[id];
         $("#obra").val(trabajadorInfo.OBRA);
         $("#contratista").val(trabajadorInfo.CONTRATISTA);
         $("#nombre").val(trabajadorInfo.NOMBRE);
@@ -439,21 +444,22 @@ function editListaRow(trabajadorID) {
 
 }
 
+function changeToEditMode(state) {  // It switches between addition and edition mode by visually changing the screen and let the user know which state he/she is in.
 
-
-
-// ================================= BORRAR CLICK
-
-
-$(document).on("click", "#fieldEraser", function () {
-    var idToManage = $(this).attr("refID");
-    $("#goErase").on("click", function () {
-        database.ref("LISTA_SEMANAL/" + idToManage).remove();
-    })
-    $("#goEdit").on("click", editListaRow(idToManage));
-})
-
-
+    if (state === "on") {
+        $("body").css("background-color", "#343a40");
+        $(".jumbotron > #mainHeader").text("MODO DE EDICIÓN DE LISTA DE ASISTENCIA");
+        $("#generalNavbar").css("display", "none");
+        $("#tableRow").css("display", "none");
+        $("#submit-bid").text("Modificar");
+    } else if (state === "off") {
+        $("body").css("background-color", "#fff");
+        $(".jumbotron > #mainHeader").text("REGISTRO DE LISTA DE ASISTENCIA");
+        $("#generalNavbar").css("display", "block");
+        $("#tableRow").css("display", "flex");
+        $("#submit-bid").text("Agregar");
+    }
+}
 
 
 // ================================= ERROR DATA CATCHER FUNCTION
