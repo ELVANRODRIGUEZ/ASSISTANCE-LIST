@@ -1,8 +1,8 @@
-
 /* ============================== GENERAL */
+
 html,
 body {
-    zoom: 100%;
+    /* zoom: 100vw; */
     width: 100%;
     min-width: 390px;
     min-height: 100vh;
@@ -38,10 +38,9 @@ a:visited {
 
 .jumbotron {
     margin-bottom: 0px;
-    padding: 25px 0px;
+    padding: 25px 10px;
 
 }
-
 
 
 /* ============================== TABLE */
@@ -50,6 +49,7 @@ a:visited {
     margin-bottom: 15px;
     margin-top: 15px;
 }
+
 .tableDiv {
     overflow: auto;
     font-size: 9pt;
@@ -57,6 +57,7 @@ a:visited {
     padding: 0px;
     border: 1px solid #ced4da;
     border-radius: .25rem;
+    max-height: 50vh;
 }
 
 .table thead, .table th {
@@ -77,13 +78,11 @@ td.selector {
 }
 
 
-
 /* ============================== MODAL */
 
 .caution {
     background-color: red;
 }
-
 
 
 /* ============================== WEEK DAYS CONTAINER */
@@ -114,7 +113,6 @@ td.selector {
     padding: 4px;
     font-size: 14px;
 }
-
 
 
 /* ============================== SUBMIT */

@@ -14,7 +14,6 @@ var config = {
 firebase.initializeApp(config);
 
 
-
 // ================================= GLOBAL VARIABLES
 
 // Create a variable to reference the database.
@@ -43,19 +42,17 @@ var trabajadoresRef = database.ref("TRABAJADORES"); // TRABAJADORES REFERENCE>> 
 trabajadoresRef.orderByChild("NOMBRE").on("value", gotData, errData); // Event listener for "trabajadoresRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
 
 
-
 // ================================= ON FIREBASE "TRABAJADORES" FOLDER CHANGE
-
 
 function gotData(data) {
     trabajadores = data.val(); // Storing the new (recently changed) "TRABAJADORES" json object in Firebase.
     keysArr = []; // Storing as array all the ID from "TRABAJADORES" json object in Firebase.
 
 
-     // =======================
+    // =======================
 
-     data.forEach(function(element){
-        keysArr.push(element.key);  // Storing as array all the ID from "LISTA_SEMANAL" in Firebase that is going to be passed on one by one.
+    data.forEach(function (element) {
+        keysArr.push(element.key); // Storing as array all the ID from "LISTA_SEMANAL" in Firebase that is going to be passed on one by one.
     })
 
     // =======================
@@ -70,6 +67,7 @@ function gotData(data) {
         nameInTab = trabajadores[k].NOMBRE; // Storing "NOMBRE" from the table in each loop.
         var rangoInTab = trabajadores[k].RANGO; // Storing "RANGO" from the table in each loop.
         var rayaInTab = trabajadores[k].RAYA_SEMANAL; // Storing "RAYA_SEMANAL" from the table in each loop.   
+        var observaciones = trabajadores[k].OBSERVACIONES; // Storing "OBSERVACIONES" from the table in each loop.   
 
         var currencyFormatrer = new Intl.NumberFormat("es-MX", { // "Intl.NumberFormat" is a class (object constructor) to change the formmat of a numeric value.
             style: "currency",
@@ -81,16 +79,17 @@ function gotData(data) {
 
         var newRow = $("<tr>" +
             "<td class='selector' idRef='" +
-            idInTab + "'>" + idInTab + "</td>" +
+            idInTab + "'>" +
+            "<button type='button' " +
+            " id=fieldEraser refId='" +
+            idInTab + "' class='btn btn-dark'" +
+            "data-toggle='modal'" +
+            "data-target='#exampleModal'" +
+            ">E</button></td>" +
             "<td>" + nameInTab + "</td>" +
             "<td>" + rangoInTab + "</td>" +
             "<td>" + rayaConFormato + "</td>" +
-            "<td><button type='button' " +
-            " id=fieldEraser refId='" +
-            idInTab + "' class='btn btn-warning'" +
-            "data-toggle='modal'" +
-            "data-target='#exampleModal'" +
-            ">Borrar</button></td>" +
+            "<td>" + observaciones + "</td>" +
             "</tr>");
         $("table > tbody:last").append(newRow); // Creating the new row(s) and appending it(them) to the cleared table.
 
@@ -113,7 +112,6 @@ function findTrabajador(nombre) { // FIND TRABAJADOR>> Is a function to retrieve
 
 // ================================= SUBMIT BUTTON CLICK
 
-
 $("#submit-bid").on("click", function (event) {
 
     event.preventDefault(); // Cancel the reloading default functionality of the "submit" button.
@@ -121,12 +119,14 @@ $("#submit-bid").on("click", function (event) {
     name = $("#name").val();
     rango = $("#rango").val();
     raya = $("#raya").val();
+    observaciones = $("#observaciones").val();
 
     if (!editMode) {
         trabajadoresRef.push({ // This will add a new "trabajador" on the Firebase "TRABAJADORES" folder (or table) with the values assign to the correspondant named variables. Or, it will store push the info to an existing item if Edition Mode is on.
             NOMBRE: name,
             RANGO: rango,
             RAYA_SEMANAL: raya,
+            OBSERVACIONES: observaciones,
             DateAdded: firebase.database.ServerValue.TIMESTAMP
 
         });
@@ -138,24 +138,38 @@ $("#submit-bid").on("click", function (event) {
             NOMBRE: name,
             RANGO: rango,
             RAYA_SEMANAL: raya,
+            OBSERVACIONES: observaciones,
             DateAdded: firebase.database.ServerValue.TIMESTAMP
         });
     }
     name = $("#name").val("");
     rango = $("#rango").val("");
     raya = $("#raya").val("");
+    observaciones = $("#observaciones").val("");
 
 })
 
 
-// ================================= ID TABLE FIELD CLICK
+// ================================= EDIT/ERASE BUTTON CLICK
 
+$(document).on("click", "#fieldEraser", function () {
+    trabajadorID = $(this).attr("refID");
 
-$(document).on("click", ".selector", function (event) {
+});
 
-    trabajadorID = $(this).attr("idRef");
+$("#goErase").on("click", function () {
+    database.ref("TRABAJADORES/" + idToErase).remove();
+});
+
+$("#goEdit").on("click", function () {
+    editListaRow(trabajadorID);
+});
+
+function editListaRow(id) {
 
     editMode = true;
+
+    changeToEditMode("on");
 
     trabajadoresRef.once("value", gotChild, errData);
 
@@ -168,25 +182,42 @@ $(document).on("click", ".selector", function (event) {
 
     }
 
-})
+}
 
+function changeToEditMode(state) { // It switches between addition and edition mode by visually changing the screen and let the user know which state he/she is in.
 
-
-// ================================= BORRAR CLICK
-
-
-$(document).on("click", "#fieldEraser", function () {
-    var idToErase = $(this).attr("refID");
-    $("#goErase").on("click", function () {
-        database.ref("TRABAJADORES/" + idToErase).remove();
-    })
-})
-
+    if (state === "on") {
+        $("body").css("background-color", "#343a40");
+        $(".jumbotron > #mainHeader").text("MODO DE EDICIÓN DE LISTA DE ASISTENCIA");
+        $("#generalNavbar").css("display", "none");
+        $("#tableRow").css("display", "none");
+        $("#submit-bid").text("Modificar");
+    } else if (state === "off") {
+        $("body").css("background-color", "#fff");
+        $(".jumbotron > #mainHeader").text("REGISTRO DE LISTA DE ASISTENCIA");
+        $("#generalNavbar").css("display", "block");
+        $("#tableRow").css("display", "flex");
+        $("#submit-bid").text("Agregar");
+    }
+}
 
 
 // ================================= ERROR DATA CATCHER FUNCTION
 
-
 function errData(err) {
     console.log("Error: " + err);
 }
+
+
+// "QWEASDFWERWERQWER" : {
+//     "DateAdded" : 1556117631983,
+//     "NOMBRE" : "AURELIO PLAYAS",
+//     "RANGO" : "SEGUNDERO",
+//     "RAYA_SEMANAL" : "2500"
+//   },
+//   "asdfafasfwefwvcvv" : {
+//     "DateAdded" : 1556128993186,
+//     "NOMBRE" : "MARTIN GARCIA",
+//     "RANGO" : "CARPINTERO",
+//     "RAYA_SEMANAL" : "3500"
+//   }

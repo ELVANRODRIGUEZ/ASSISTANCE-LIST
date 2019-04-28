@@ -403,7 +403,6 @@ $("#goErase").on("click", function () {
 });
 
 $("#goEdit").on("click", function () {
-    console.log(trabajadorID);
     editListaRow(trabajadorID);
 });
 

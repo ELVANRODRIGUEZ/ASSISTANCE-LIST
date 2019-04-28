@@ -1,16 +1,19 @@
+/* ============================== GENERAL */
+
+html,
+body {
+    /* zoom: 100vw; */
+    width: 100%;
+    min-width: 390px;
+    min-height: 100vh;
+
+}
+
 .container {
     height: 100%;
     padding: 15px;
 }
-.jumbotron {
-    margin-bottom: 0px;
-    padding: 25px 0px;
 
-}
-
-a:visited {
-    color: white;
-}
 h3 {
     margin: 0;
 }
@@ -19,26 +22,53 @@ a {
     font-size: 14pt;
 }
 
+a:visited {
+    color: white;
+}
+
+.card-header {
+    background-color: #343a40;
+    color: #fff;
+    border: 1px solid #343a40;
+}
+
+
+/* ============================== JUMBOTRON */
+
+.jumbotron {
+    margin-bottom: 0px;
+    padding: 25px 10px;
+
+}
+
+
+/* ============================== TABLE */
+
 .row {
     margin-bottom: 15px;
     margin-top: 15px;
 }
+
 .tableDiv {
     overflow: auto;
-    /* background-color: black;
-    color: white; */
     font-size: 9pt;
-    border: 1px solid #dee2e6;
+    margin: 15px 6px;
+    padding: 0px;
+    border: 1px solid #ced4da;
     border-radius: .25rem;
+    max-height: 50vh;
+
 }
 
-.table thead, .table th, .table td {
+.table thead, .table th {
     padding: 5px;
-    border: 0;
+    border: 1px solid #c2c2c2;
+    background-color: rgba(0,0,0,.03);
 }
 
 .table td {
     border-right: 1px solid #f3f3f3; 
+    border-left: 1px solid #f3f3f3; 
     border-bottom: 1px solid #f3f3f3; 
 }
 
@@ -48,42 +78,15 @@ td.selector {
     word-break: break-all;
 }
 
-.selector:hover {
-    color: white;
-    background-color: black;
-    
-}
+
+/* ============================== MODAL */
 
 .caution {
     background-color: red;
 }
 
-.weekDaysContainer {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
-    background-color: black;
-    margin: 0;
-    margin-bottom: 16px;
-}
 
-.days-col {
-    display: inline-block;
-    width: 14.28%;
-    min-width: 60px;
-    padding: 2px;
-    margin-bottom: 0;
-}
-
-.domingo {
-    align-self: flex-end;
-}
-
-.weekHours {
-    padding: 4px;
-    font-size: 14px;
-}
+/* ============================== SUBMIT */
 
 .btn {
     margin-left: 50%;

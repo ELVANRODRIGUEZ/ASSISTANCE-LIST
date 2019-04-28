@@ -26,9 +26,9 @@
   </script>
 
   <!-- Metatag to start setting resposiveness -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- link to CSS. -->
-  <link rel="stylesheet" href="assets/css/index.css">
+  <link rel="stylesheet" href="assets/css/listaTrabajadores.css">
   <!-- Firebase Reference -->
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
 
@@ -48,26 +48,29 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">SE BORRARÁ ESTE REGISTRO</h6>
+          <h6 class="modal-title" id="exampleModalLabel">¿QUÉ DESEA HACER CON EL REGISTRO?</h6>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <button type="button" id="goErase" class="btn btn-primary" data-dismiss="modal">OK</button>
+          <button type="button" id="goErase" class="btn btn-danger" data-dismiss="modal">BORRAR</button>
+        </div>
+        <div class="modal-body">
+          <button type="button" id="goEdit" class="btn btn-warning" data-dismiss="modal">EDITAR</button>
         </div>
       </div>
     </div>
   </div>
-  
+
 
   <!-- ==================================================== HEADER -->
 
   <div class="jumbotron jumbotron-fluid bg-dark text-light">
-    <h3 class="text-center">REGISTRO DE TRABAJADORES</h3>
+    <h3 id="mainHeader" class="text-center">REGISTRO DE TRABAJADORES</h3>
   </div>
 
-  <div class="pos-f-t">
+  <div id="generalNavbar" class="pos-f-t">
     <div class="collapse" id="navbarToggleExternalContent">
       <div class="bg-dark p-4">
         <a href="index.html">AÑADIR LISTA DE RAYA</a>
@@ -82,34 +85,33 @@
   </div>
 
   <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card card-header">
-          INFORMACIÓN DE TRABAJADOR
-        </div>
-      </div>
-    </div>
-
 
     <!-- ==================================================== TABLE -->
 
-    <div class="tableDiv">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">NOMBRE</th>
-            <th scope="col">RANGO</th>
-            <th scope="col">RAYA SEMANAL</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
+    <div id="tableRow" class="row">
+      <div class="col-lg-12">
+        <div class="card card-default">
+          <div class="card-header">
+            INFORMACIÓN DE TRABAJADOR
+          </div>
+          <div class="card-body tableDiv">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="id" scope="col"></th>
+                  <th scope="col">NOMBRE</th>
+                  <th scope="col">RANGO</th>
+                  <th scope="col">RAYA SEMANAL</th>
+                  <th scope="col">OBSERVACIONES</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-
 
     <!-- ==================================================== INPUT FORM -->
 
@@ -132,6 +134,10 @@
               <div class="form-group row">
                 <label for="raya">Raya semanal ($)</label>
                 <input class="form-control" id="raya" type="number">
+              </div>
+              <div class="form-group row">
+                <label for="rango">Observaciones</label>
+                <input class="form-control" id="observaciones" type="text">
               </div>
               <button class="btn btn-primary btn-dark" id="submit-bid" type="submit">Agregar</button>
             </form>
