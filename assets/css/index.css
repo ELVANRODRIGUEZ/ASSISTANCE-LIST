@@ -4,7 +4,7 @@ html,
 body {
     /* zoom: 100vw; */
     width: 100%;
-    min-width: 390px;
+    min-width: 320px;
     min-height: 100vh;
 
 }

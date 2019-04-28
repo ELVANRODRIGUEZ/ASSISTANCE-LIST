@@ -141,11 +141,16 @@ $("#submit-bid").on("click", function (event) {
             OBSERVACIONES: observaciones,
             DateAdded: firebase.database.ServerValue.TIMESTAMP
         });
+
+        changeToEditMode("off");
+
     }
-    name = $("#name").val("");
-    rango = $("#rango").val("");
-    raya = $("#raya").val("");
-    observaciones = $("#observaciones").val("");
+    $("#name").val("");
+    $("#rango").val("");
+    $("#raya").val("");
+    $("#observaciones").val("");
+
+    window.scrollTo(0, 0);
 
 })
 
@@ -188,7 +193,7 @@ function changeToEditMode(state) { // It switches between addition and edition m
 
     if (state === "on") {
         $("body").css("background-color", "#343a40");
-        $(".jumbotron > #mainHeader").text("MODO DE EDICIÓN DE LISTA DE ASISTENCIA");
+        $(".jumbotron > #mainHeader").text("MODO DE EDICIÓN DE LISTA DE TRABAJADORES");
         $("#generalNavbar").css("display", "none");
         $("#tableRow").css("display", "none");
         $("#submit-bid").text("Modificar");
