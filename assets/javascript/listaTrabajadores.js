@@ -3,13 +3,13 @@
 // Initialize Firebase
 
 var config = {
-    apiKey: "AIzaSyBkQ8n84DzblncB49K7j1My3rjueZLqXLk",
-    authDomain: "elvan-first-project.firebaseapp.com",
-    databaseURL: "https://elvan-first-project.firebaseio.com/",
-    projectId: "elvan-first-project",
-    storageBucket: "elvan-first-project.appspot.com",
-    messagingSenderId: "36237204810"
-};
+    apiKey: "AIzaSyBnzH3RDhRuGr4VHbllH-FcLbrgj0aepB8",
+    authDomain: "assistance-lists.firebaseapp.com",
+    databaseURL: "https://assistance-lists.firebaseio.com",
+    projectId: "assistance-lists",
+    storageBucket: "assistance-lists.appspot.com",
+    messagingSenderId: "579020766272"
+  };
 
 firebase.initializeApp(config);
 
@@ -184,6 +184,7 @@ function editListaRow(id) {
         $("#name").val(trabajadorInfo.NOMBRE);
         $("#rango").val(trabajadorInfo.RANGO);
         $("#raya").val(trabajadorInfo.RAYA_SEMANAL);
+        $("#observaciones").val(trabajadorInfo.OBSERVACIONES);
 
     }
 
@@ -212,17 +213,3 @@ function changeToEditMode(state) { // It switches between addition and edition m
 function errData(err) {
     console.log("Error: " + err);
 }
-
-
-// "QWEASDFWERWERQWER" : {
-//     "DateAdded" : 1556117631983,
-//     "NOMBRE" : "AURELIO PLAYAS",
-//     "RANGO" : "SEGUNDERO",
-//     "RAYA_SEMANAL" : "2500"
-//   },
-//   "asdfafasfwefwvcvv" : {
-//     "DateAdded" : 1556128993186,
-//     "NOMBRE" : "MARTIN GARCIA",
-//     "RANGO" : "CARPINTERO",
-//     "RAYA_SEMANAL" : "3500"
-//   }

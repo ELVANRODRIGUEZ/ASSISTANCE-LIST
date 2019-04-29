@@ -3,12 +3,12 @@
 // Initialize Firebase
 
 var config = {
-    apiKey: "AIzaSyBkQ8n84DzblncB49K7j1My3rjueZLqXLk",
-    authDomain: "elvan-first-project.firebaseapp.com",
-    databaseURL: "https://elvan-first-project.firebaseio.com/",
-    projectId: "elvan-first-project",
-    storageBucket: "elvan-first-project.appspot.com",
-    messagingSenderId: "36237204810"
+    apiKey: "AIzaSyBnzH3RDhRuGr4VHbllH-FcLbrgj0aepB8",
+    authDomain: "assistance-lists.firebaseapp.com",
+    databaseURL: "https://assistance-lists.firebaseio.com",
+    projectId: "assistance-lists",
+    storageBucket: "assistance-lists.appspot.com",
+    messagingSenderId: "579020766272"
 };
 
 firebase.initializeApp(config);
@@ -262,14 +262,22 @@ function gotLiTraData(data) { // This will dinamcally add new options for "Nombr
 
 $("#nombre").on("change", function () {
     var trabajadorItem = $("option:selected", this).attr("idRef"); // We are retrieving the Id stored on the option "idRef" attribute.
-    listaTrabajadoresRef.once("value", gotTrabajador, errData); // Listening to the "value" event to trigger a function that has the data parsed as a json object as the first parameter by default. We will need it to search for the above obtained ID.
+    if (trabajadorItem == "limpiarSeleccion") { // If "Limpiar Selección" is selected, then "rango" and "raya" get cleared and "Seleccionar" default option is selected from the drop down menu.
+        $("#rango").val("");
+        $("#raya").val("");
+        $("#listaTrabajadores option:eq(0)").prop("selected", true);
 
-    function gotTrabajador(data) {
-        listaTrabajadores = data.val();
-        var trabajadorInfo = listaTrabajadores[trabajadorItem]; // "listaTrabajadores" was already defined when "Nombre del trabajador" option input was populated. We are retrieving the Id stored on the option
-        $("#rango").val(trabajadorInfo.RANGO);
-        $("#raya").val(trabajadorInfo.RAYA_SEMANAL);
+    } else {
 
+        listaTrabajadoresRef.once("value", gotTrabajador, errData); // Listening to the "value" event to trigger a function that has the data parsed as a json object as the first parameter by default. We will need it to search for the above obtained ID.
+
+        function gotTrabajador(data) {
+            listaTrabajadores = data.val();
+            var trabajadorInfo = listaTrabajadores[trabajadorItem]; // "listaTrabajadores" was already defined when "Nombre del trabajador" option input was populated. We are retrieving the Id stored on the option
+            $("#rango").val(trabajadorInfo.RANGO);
+            $("#raya").val(trabajadorInfo.RAYA_SEMANAL);
+
+        }
     }
 })
 
@@ -443,7 +451,7 @@ function editListaRow(id) {
 
 }
 
-function changeToEditMode(state) {  // It switches between addition and edition mode by visually changing the screen and let the user know which state he/she is in.
+function changeToEditMode(state) { // It switches between addition and edition mode by visually changing the screen and let the user know which state he/she is in.
 
     if (state === "on") {
         $("body").css("background-color", "#343a40");
