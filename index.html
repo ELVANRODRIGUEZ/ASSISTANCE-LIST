@@ -164,8 +164,8 @@
           <div class="card-body">
             <form>
 
-              <div class="form-group row">
-                <label for="obra">Obra</label>
+              <div id="listaObra" class="form-group row">
+                <label for="obraList">Obra</label>
                 <select class="form-control selectpicker" id="obraList">
                   <option selected disabled>Seleccionar</option>
                   <option idRef="limpiarSeleccion">Limpiar Selección</option>
@@ -179,7 +179,7 @@
                 <!-- <input class="form-control" id="obra" type="text"> -->
               </div>
               <div id="listaContratistas" class="form-group row">
-                <label for="contratista">Contratista</label>
+                <label for="contratistaList">Contratista</label>
                 <select class="form-control selectpicker" id="contratistaList">
                   <option selected disabled>Seleccionar</option>
                   <option idRef="limpiarSeleccion">Limpiar Selección</option>
@@ -189,18 +189,43 @@
                   <option idRef="">MARCIANO HERNÁNDEZ</option>
                   <option idRef="">RODRIGO ARGÜELLO</option>
                 </select>
-                <!-- <input class="form-control" id="contratista" type="text"> -->
               </div>
               <div id="listaTrabajadores" class="form-group row">
-                <label for="nombre">Nombre del trabajador</label>
+                <label for="nombreList">Nombre del trabajador</label>
                 <select class="form-control selectpicker" id="nombreList">
                   <option selected disabled>Seleccionar</option>
                   <option idRef="limpiarSeleccion">Limpiar Selección</option>
                 </select>
               </div>
-              <div class="form-group row">
-                <label for="rango">Rango</label>
-                <input class="form-control" id="rango" type="text">
+              <div id="listaRango" class="form-group row">
+                <label for="rangoList">Rango</label>
+                <select class="form-control selectpicker" id="rangoList">
+                  <option selected disabled>Seleccionar</option>
+                  <option idRef="limpiarSeleccion">Limpiar Selección</option>
+                  <option idRef="">AYUDANTE ALBAÑIL</option>
+                  <option idRef="">AYUDANTE ALUMINIERO</option>
+                  <option idRef="">AYUDANTE CARPINTERO ON</option>
+                  <option idRef="">AYUDANTE CARPINTERO OB</option>
+                  <option idRef="">AYUDANTE DE INSTALACIONES</option>
+                  <option idRef="">AYUDANTE FIERRERO</option>
+                  <option idRef="">AYUDANTE HERRERO</option>
+                  <option idRef="">AYUDANTE JARDINERO</option>
+                  <option idRef="">INTENDENCIA</option>
+                  <option idRef="">MAESTRERO</option>
+                  <option idRef="">OFICIAL ALBAÑIL</option>
+                  <option idRef="">OFICIAL ALUMINIERO</option>
+                  <option idRef="">OFICIAL CARPINTERO ON</option>
+                  <option idRef="">OFICIAL CARPINTERO OB</option>
+                  <option idRef="">OFICIAL ELECTRICISTA</option>
+                  <option idRef="">OFICIAL FIERRERO</option>
+                  <option idRef="">OFICIAL HERRERO</option>
+                  <option idRef="">OFICIAL JARDINERO</option>
+                  <option idRef="">OFICIAL PLOMERO</option>
+                  <option idRef="">SEGUNDERO</option>
+                  <option idRef="">SEGURIDAD INDUSTRIAL</option>
+                  <option idRef="">VELADOR BODEGUERO</option>
+                </select>
+                <!-- <input class="form-control" id="rango" type="text"> -->
               </div>
               <div class="form-group row">
                 <label for="sabado">Fecha (a sábados)</label>
@@ -256,10 +281,6 @@
                 <label for="descuentos">Descuentos ($)</label>
                 <input class="form-control" id="descuentos" type="number">
               </div>
-              <!-- <div class="form-group row">
-                <label for="formaPago">Forma de pago</label>
-                <input class="form-control" id="formaPago" type="text">
-              </div> -->
               <div class="form-group row">
                 <label for="formaPago">Forma de pago</label>
                 <select class="form-control selectpicker" id="formaPago">

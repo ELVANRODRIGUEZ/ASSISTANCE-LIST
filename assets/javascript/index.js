@@ -293,7 +293,16 @@ $("#constratistaSelector").on("change", function () {
 });
 
 
-// ================================= SELECTING TRABAJADOR
+// ================================= SELECTING LIST IN INPUT FORM
+
+$("#obraList").on("change", function () {
+    var obraItem = $("option:selected", this).attr("idRef"); // We are retrieving the Id stored on the option "idRef" attribute.
+    if (obraItem == "limpiarSeleccion") { // If "Limpiar Selección" is selected, "Seleccionar" default option is selected from the drop down menu.
+        $("#listaObra option:eq(0)").prop("selected", true);
+
+    } 
+
+});
 
 $("#nombreList").on("change", function () {
     var trabajadorItem = $("option:selected", this).attr("idRef"); // We are retrieving the Id stored on the option "idRef" attribute.
@@ -325,6 +334,15 @@ $("#contratistaList").on("change", function () {
 
 });
 
+$("#rangoList").on("change", function () {
+    var rangoItem = $("option:selected", this).attr("idRef"); // We are retrieving the Id stored on the option "idRef" attribute.
+    if (rangoItem == "limpiarSeleccion") { // If "Limpiar Selección" is selected, "Seleccionar" default option is selected from the drop down menu.
+        $("#listaRango option:eq(0)").prop("selected", true);
+
+    } 
+
+});
+
 
 // ================================= SUBMIT BUTTON CLICK
 
@@ -336,7 +354,7 @@ $("#submit-bid").on("click", function (event) {
     contratista = $("#contratistaList").val();
     nombre = $("#nombreList").val();
     sabado = $("#sabado").val();
-    rango = $("#rango").val();
+    rango = $("#rangoList").val();
     Lun = $("#Lun").val();
     LunEx = $("#Lun-e").val();
     Mar = $("#Mar").val();
@@ -418,8 +436,8 @@ $("#submit-bid").on("click", function (event) {
     $("#obraList").val("");
     $("#contratistaList").val("");
     $("#nombreList").val("");
+    $("#rangoList").val("");
     $("#sabado").val("");
-    $("#rango").val("");
     $("#Lun").val("");
     $("#Lun-e").val("");
     $("#Mar").val("");
@@ -474,7 +492,7 @@ function editListaRow(id) {
         $("#obraList").val(trabajadorInfo.OBRA);
         $("#contratistaList").val(trabajadorInfo.CONTRATISTA);
         $("#nombreList").val(trabajadorInfo.NOMBRE);
-        $("#rango").val(trabajadorInfo.RANGO);
+        $("#rangoList").val(trabajadorInfo.RANGO);
         $("#sabado").val(trabajadorInfo.FECHA_SAB);
         $("#Lun").val(trabajadorInfo.HRS_LUN);
         $("#Lun-e").val(trabajadorInfo.HRSEXT_LUN);
