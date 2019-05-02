@@ -98,8 +98,26 @@
               <thead>
                 <tr>
                   <th class="id" scope="col"></th>
-                  <th scope="col">OBRA</th>
-                  <th scope="col">CONTRATISTA</th>
+                  <th id="obra" scope="col">
+                    <select id="obraSelector" class="form-control">
+                      <option title="TODAS LAS OBRAS">OBRA</option>
+                      <option title="CAMARGO 2">CAMARGO 26</option>
+                      <option title="CONCEPCION BEISTEGUI">CONCEPCION BEISTEGUI</option>
+                      <option title="LERDO 42">LERDO 42</option>
+                      <option title="OXFORD 35">OXFORD 35</option>
+                      <option title="SINALOA 4">SINALOA 49</option>
+                    </select>
+                  </th>
+                  <th id="contratista" scope="col">
+                    <select id="constratistaSelector" class="form-control">
+                      <option title="TODOS LOS CONTRATISTAS">CONTRATISTA</option>
+                      <option title="FERNADO REYES">FERNADO REYES</option>
+                      <option title="JOSÉ SANDOVAL">JOSÉ SANDOVAL</option>
+                      <option title="MANUEL NAVARRO">MANUEL NAVARRO</option>
+                      <option title="MARCIANO HERNÁNDEZ">MARCIANO HERNÁNDEZ</option>
+                      <option title="RODRIGO ARGÜELLO">RODRIGO ARGÜELLO</option>
+                    </select>
+                  </th>
                   <th scope="col">NOMBRE</th>
                   <th scope="col">RANGO</th>
                   <th scope="col">FECHA (A SÁBADOS)</th>
@@ -148,15 +166,34 @@
 
               <div class="form-group row">
                 <label for="obra">Obra</label>
-                <input class="form-control" id="obra" type="text">
+                <select class="form-control selectpicker" id="obraList">
+                  <option selected disabled>Seleccionar</option>
+                  <option idRef="limpiarSeleccion">Limpiar Selección</option>
+                  <option idRef="">CAMARGO 26</option>
+                  <option idRef="">CONCEPCION BEISTEGUI</option>
+                  <option idRef="">LERDO 42</option>
+                  <option idRef="">OXFORD 35</option>
+                  <option idRef="">SINALOA 49</option>
+                </select>
+                </select>
+                <!-- <input class="form-control" id="obra" type="text"> -->
               </div>
-              <div class="form-group row">
+              <div id="listaContratistas" class="form-group row">
                 <label for="contratista">Contratista</label>
-                <input class="form-control" id="contratista" type="text">
+                <select class="form-control selectpicker" id="contratistaList">
+                  <option selected disabled>Seleccionar</option>
+                  <option idRef="limpiarSeleccion">Limpiar Selección</option>
+                  <option idRef="">FERNADO REYES</option>
+                  <option idRef="">JOSÉ SANDOVAL</option>
+                  <option idRef="">MANUEL NAVARRO</option>
+                  <option idRef="">MARCIANO HERNÁNDEZ</option>
+                  <option idRef="">RODRIGO ARGÜELLO</option>
+                </select>
+                <!-- <input class="form-control" id="contratista" type="text"> -->
               </div>
               <div id="listaTrabajadores" class="form-group row">
                 <label for="nombre">Nombre del trabajador</label>
-                <select class="form-control selectpicker" id="nombre">
+                <select class="form-control selectpicker" id="nombreList">
                   <option selected disabled>Seleccionar</option>
                   <option idRef="limpiarSeleccion">Limpiar Selección</option>
                 </select>
@@ -226,7 +263,7 @@
               <div class="form-group row">
                 <label for="formaPago">Forma de pago</label>
                 <select class="form-control selectpicker" id="formaPago">
-                  <option selected >EFECTIVO</option>
+                  <option selected>EFECTIVO</option>
                   <option>TARJETA</option>
                 </select>
               </div>

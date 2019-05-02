@@ -251,16 +251,51 @@ function gotLiTraData(data) { // This will dinamcally add new options for "Nombr
     listaTrabajadores = data.val(); // This retrieves, one by one, each one of the childs in "TRABAJADOREA" directory as a json object in Firebase.
 
     var TraExistente = data.key; // This retrieves the original Id from each one of the existing childs on "TRABAJADORES" directory.
-    $("#nombre").append(
+    $("#nombreList").append(
         "<option idRef='" + TraExistente +
         "'>" + listaTrabajadores.NOMBRE + "</option>");
 
 }
 
 
-// ================================= SELECTIN TRABAJADOR
+// ================================= TABLE FILTERS
 
-$("#nombre").on("change", function () {
+
+$("#obraSelector").on("change", function () {
+
+    var qryObra = $(this).val(); // qryObra>> Qurey Obra will catch the selected item from the Obra header filter.
+    var qryRef; // qryRef>> Query Reference.
+
+    if ($(this).val() != "OBRA") {
+        qryRef = listaSemanalRef.orderByChild("OBRA").equalTo(qryObra);
+    } else {
+        qryRef = listaSemanalRef.orderByChild("OBRA")
+    }   // According to the selected item in Obra header filter, this conditional will build the reference to filter either all Obras or a specific one.   
+
+    qryRef.on("value", gotLiSemData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
+
+});
+
+
+$("#constratistaSelector").on("change", function () {
+
+    var qryContratista = $(this).val(); // qryObra>> Qurey Contratistas will catch the selected item from the Contratistas header filter.
+    var qryRef; // qryRef>> Query Reference.
+
+    if ($(this).val() != "CONTRATISTA") {
+        qryRef = listaSemanalRef.orderByChild("CONTRATISTA").equalTo(qryContratista);
+    } else {
+        qryRef = listaSemanalRef.orderByChild("CONTRATISTA")
+    }   // According to the selected item in Obra header filter, this conditional will build the reference to filter either all Contratistas or a specific one.   
+
+    qryRef.on("value", gotLiSemData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
+
+});
+
+
+// ================================= SELECTING TRABAJADOR
+
+$("#nombreList").on("change", function () {
     var trabajadorItem = $("option:selected", this).attr("idRef"); // We are retrieving the Id stored on the option "idRef" attribute.
     if (trabajadorItem == "limpiarSeleccion") { // If "Limpiar Selección" is selected, then "rango" and "raya" get cleared and "Seleccionar" default option is selected from the drop down menu.
         $("#rango").val("");
@@ -279,7 +314,16 @@ $("#nombre").on("change", function () {
 
         }
     }
-})
+});
+
+$("#contratistaList").on("change", function () {
+    var contratistaItem = $("option:selected", this).attr("idRef"); // We are retrieving the Id stored on the option "idRef" attribute.
+    if (contratistaItem == "limpiarSeleccion") { // If "Limpiar Selección" is selected, "Seleccionar" default option is selected from the drop down menu.
+        $("#listaContratistas option:eq(0)").prop("selected", true);
+
+    } 
+
+});
 
 
 // ================================= SUBMIT BUTTON CLICK
@@ -288,9 +332,9 @@ $("#submit-bid").on("click", function (event) {
 
     event.preventDefault(); // Cancel the reloading default functionality of the "submit" button.
 
-    obra = $("#obra").val();
-    contratista = $("#contratista").val();
-    nombre = $("#nombre").val();
+    obra = $("#obraList").val();
+    contratista = $("#contratistaList").val();
+    nombre = $("#nombreList").val();
     sabado = $("#sabado").val();
     rango = $("#rango").val();
     Lun = $("#Lun").val();
@@ -371,9 +415,9 @@ $("#submit-bid").on("click", function (event) {
 
     }
 
-    $("#obra").val("");
-    $("#contratista").val("");
-    $("#nombre").val("");
+    $("#obraList").val("");
+    $("#contratistaList").val("");
+    $("#nombreList").val("");
     $("#sabado").val("");
     $("#rango").val("");
     $("#Lun").val("");
@@ -396,7 +440,7 @@ $("#submit-bid").on("click", function (event) {
 
     window.scrollTo(0, 0);
 
-})
+});
 
 
 // ================================= EDIT/ERASE BUTTON CLICK
@@ -414,6 +458,8 @@ $("#goEdit").on("click", function () {
     editListaRow(trabajadorID);
 });
 
+
+
 function editListaRow(id) {
 
     editMode = true;
@@ -425,9 +471,9 @@ function editListaRow(id) {
     function gotChild(data) {
 
         var trabajadorInfo = listaSemanal[id];
-        $("#obra").val(trabajadorInfo.OBRA);
-        $("#contratista").val(trabajadorInfo.CONTRATISTA);
-        $("#nombre").val(trabajadorInfo.NOMBRE);
+        $("#obraList").val(trabajadorInfo.OBRA);
+        $("#contratistaList").val(trabajadorInfo.CONTRATISTA);
+        $("#nombreList").val(trabajadorInfo.NOMBRE);
         $("#rango").val(trabajadorInfo.RANGO);
         $("#sabado").val(trabajadorInfo.FECHA_SAB);
         $("#Lun").val(trabajadorInfo.HRS_LUN);
