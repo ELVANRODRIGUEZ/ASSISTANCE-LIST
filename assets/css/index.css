@@ -80,7 +80,7 @@ td.selector {
 
 /* ============================== TABLE HEADERS */
 
-#obra, #contratista {
+#obra, #contratista, #rango {
     /* padding: 0; */
     align-items: flex-start;
     height:70px;
@@ -89,7 +89,14 @@ td.selector {
     padding:0;
 }
 
-#obraSelector, #constratistaSelector {
+.headerSelector {
+    font-size: 9pt;
+    font-weight: 700;
+    padding: 5px;
+    margin: 0;
+}
+
+#obraSelector, #constratistaSelector, #rangoSelector {
     padding: 0;
     color: #212529;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";

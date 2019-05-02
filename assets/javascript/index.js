@@ -261,35 +261,85 @@ function gotLiTraData(data) { // This will dinamcally add new options for "Nombr
 // ================================= TABLE FILTERS
 
 
-$("#obraSelector").on("change", function () {
+$("#obraSelector").on("input", function () {
 
     var qryObra = $(this).val(); // qryObra>> Qurey Obra will catch the selected item from the Obra header filter.
     var qryRef; // qryRef>> Query Reference.
 
-    if ($(this).val() != "OBRA") {
+    if ($(this).val() != "TODAS") {
         qryRef = listaSemanalRef.orderByChild("OBRA").equalTo(qryObra);
     } else {
-        qryRef = listaSemanalRef.orderByChild("OBRA")
-    }   // According to the selected item in Obra header filter, this conditional will build the reference to filter either all Obras or a specific one.   
+        qryRef = listaSemanalRef.orderByChild("OBRA");
+        // "Seleccionar" default option is selected from the drop down menu.
+        $("#obra option:eq(0)").prop("selected", true);
+        // Add the down pointing triangle indicating list is order by this filter.
+        $("#obraHeader").text("OBRA \u25bc");
+
+    } // According to the selected item in Obra header filter, this conditional will build the reference to filter either all Obras or a specific one.   
 
     qryRef.on("value", gotLiSemData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
 
+    // "Seleccionar" default option is selected from the drop down menu of all filters.
+    $("#contratista option:eq(0)").prop("selected", true);
+    $("#rango option:eq(0)").prop("selected", true);
+    // Removing other filtes down pointing triangle.
+    $("#constratistaHeader").text("CONTRATISTA");
+    $("#rangoHeader").text("RANGO");
 });
 
 
-$("#constratistaSelector").on("change", function () {
+$("#constratistaSelector").on("input", function () {
 
     var qryContratista = $(this).val(); // qryObra>> Qurey Contratistas will catch the selected item from the Contratistas header filter.
     var qryRef; // qryRef>> Query Reference.
 
-    if ($(this).val() != "CONTRATISTA") {
+    if ($(this).val() != "TODOS") {
         qryRef = listaSemanalRef.orderByChild("CONTRATISTA").equalTo(qryContratista);
+
     } else {
-        qryRef = listaSemanalRef.orderByChild("CONTRATISTA")
-    }   // According to the selected item in Obra header filter, this conditional will build the reference to filter either all Contratistas or a specific one.   
+        qryRef = listaSemanalRef.orderByChild("CONTRATISTA");
+        // "Seleccionar" default option is selected from the drop down menu.
+        $("#contratista option:eq(0)").prop("selected", true);
+        // Add the down pointing triangle indicating list is order by this filter.
+        $("#contratistaHeader").text("CONTRATISTA \u25bc");
+
+    } // According to the selected item in Contratista header filter, this conditional will build the reference to filter either all Contratistas or a specific one.   
 
     qryRef.on("value", gotLiSemData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
 
+    // "Seleccionar" default option is selected from the drop down menu of all filters.
+    $("#obra option:eq(0)").prop("selected", true);
+    $("#rango option:eq(0)").prop("selected", true);
+    // Removing other filtes down pointing triangle.
+    $("#obraHeader").text("OBRA");
+    $("#rangoHeader").text("RANGO");
+
+});
+
+$("#rangoSelector").on("input", function () {
+
+    var qryRango = $(this).val(); // qryObra>> Qurey Contratistas will catch the selected item from the Contratistas header filter.
+    var qryRef; // qryRef>> Query Reference.
+
+    if ($(this).val() != "TODOS") {
+        qryRef = listaSemanalRef.orderByChild("RANGO").equalTo(qryRango);
+    } else {
+        qryRef = listaSemanalRef.orderByChild("RANGO");
+        // "Seleccionar" default option is selected from the drop down menu.
+        $("#rango option:eq(0)").prop("selected", true);
+        // Add the down pointing triangle indicating list is order by this filter.
+        $("#rangoHeader").text("RANGO \u25bc");
+
+    } // According to the selected item in Rango header filter, this conditional will build the reference to filter either all Contratistas or a specific one.   
+
+    qryRef.on("value", gotLiSemData, errData); // Event listener for "listaSemanalRef" reference. It will trigger each time data is change on it, making a callback to "gotData" and (or) "errData" functions.
+
+    // "Seleccionar" default option is selected from the drop down menu of all filters.
+    $("#obra option:eq(0)").prop("selected", true);
+    $("#contratista option:eq(0)").prop("selected", true);
+    // Removing other filtes down pointing triangle.
+    $("#obraHeader").text("OBRA");
+    $("#contratistaHeader").text("CONTRATISTA");
 });
 
 
@@ -300,7 +350,7 @@ $("#obraList").on("change", function () {
     if (obraItem == "limpiarSeleccion") { // If "Limpiar Selección" is selected, "Seleccionar" default option is selected from the drop down menu.
         $("#listaObra option:eq(0)").prop("selected", true);
 
-    } 
+    }
 
 });
 
@@ -330,7 +380,7 @@ $("#contratistaList").on("change", function () {
     if (contratistaItem == "limpiarSeleccion") { // If "Limpiar Selección" is selected, "Seleccionar" default option is selected from the drop down menu.
         $("#listaContratistas option:eq(0)").prop("selected", true);
 
-    } 
+    }
 
 });
 
@@ -339,7 +389,7 @@ $("#rangoList").on("change", function () {
     if (rangoItem == "limpiarSeleccion") { // If "Limpiar Selección" is selected, "Seleccionar" default option is selected from the drop down menu.
         $("#listaRango option:eq(0)").prop("selected", true);
 
-    } 
+    }
 
 });
 
