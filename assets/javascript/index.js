@@ -282,7 +282,7 @@ $("#obraSelector").on("input", function () {
     // "Seleccionar" default option is selected from the drop down menu of all filters.
     $("#contratista option:eq(0)").prop("selected", true);
     $("#rango option:eq(0)").prop("selected", true);
-    // Removing other filtes down pointing triangle.
+    // Removing other filter's down pointing triangle.
     $("#constratistaHeader").text("CONTRATISTA");
     $("#rangoHeader").text("RANGO");
 });
@@ -310,7 +310,7 @@ $("#constratistaSelector").on("input", function () {
     // "Seleccionar" default option is selected from the drop down menu of all filters.
     $("#obra option:eq(0)").prop("selected", true);
     $("#rango option:eq(0)").prop("selected", true);
-    // Removing other filtes down pointing triangle.
+    // Removing other filter's down pointing triangle.
     $("#obraHeader").text("OBRA");
     $("#rangoHeader").text("RANGO");
 
@@ -337,7 +337,7 @@ $("#rangoSelector").on("input", function () {
     // "Seleccionar" default option is selected from the drop down menu of all filters.
     $("#obra option:eq(0)").prop("selected", true);
     $("#contratista option:eq(0)").prop("selected", true);
-    // Removing other filtes down pointing triangle.
+    // Removing other filter's down pointing triangle.
     $("#obraHeader").text("OBRA");
     $("#contratistaHeader").text("CONTRATISTA");
 });
